@@ -33,10 +33,13 @@ function nvim-build() {
   $nvim --headless --noplugin -u ./serious/init.lua
 }
 
+function nvim-run() (
+  nvim-init
+)
 function nvim-run-docker() (
   nvim-init
   cd ../
-  docker run -v $PWD:/test-nvim -it ubuntu bash
+  docker run -v $PWD:/test-nvim -it m-vim:local bash
 )
 
 function nvim-build-docker() (
