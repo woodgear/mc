@@ -1,0 +1,10 @@
+.nvim_modules/extra/treesitter/parsers/parser/bash.so
+.nvim_modules/extra/treesitter/parsers/parser/go.so
+.nvim_modules/extra/treesitter/parsers/parser/json.so
+.nvim_modules/extra/treesitter/parsers/parser/lua.so
+.nvim_modules/extra/treesitter/parsers/parser/rust.so
+.nvim_modules/extra/treesitter/parsers/parser-info/bash.revision
+.nvim_modules/extra/treesitter/parsers/parser-info/go.revision
+.nvim_modules/extra/treesitter/parsers/parser-info/json.revision
+.nvim_modules/extra/treesitter/parsers/parser-info/lua.revision
+.nvim_modules/extra/treesitter/parsers/parser-info/rust.revision

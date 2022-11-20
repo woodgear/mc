@@ -1,4 +1,4 @@
-local u = require "util"
+local u = require "util.util"
 
 describe("try test", function()
     it("should ok", function()

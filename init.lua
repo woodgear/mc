@@ -1,3 +1,4 @@
 vim.opt.rtp:append(".")
 
-require("config.neo-tree")
+require("config")
+require("basic")
