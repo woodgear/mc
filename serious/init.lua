@@ -1,5 +1,5 @@
 package.path = package.path .. ";./serious/?.lua"
-
+local inspect = vim.inspect
 local F = require("pkg.F")
 
 local pkg = require("nvim-package").pkgs
@@ -69,11 +69,32 @@ for _, pkg in ipairs(pkg) do
 end
 print(exec(F "tree -L 1 {PKG_BASE}"))
 exec(F "mkdir -p {PKG_BASE}/site/extra/treesitter/parsers")
-local treesitter_base = vim.fn.stdpath("data") .. "/site/extra/treesitter/parsers"
-print(treesitter_base)
-require("nvim-treesitter.configs").setup({
-    parser_install_dir = treesitter_base
-})
-require("nvim-treesitter.install").ensure_installed_sync({"c", "go", "json", "bash", "lua", "rust"})
+
+-- tree sitter extra
+do
+    local treesitter_base = vim.fn.stdpath("data") .. "/site/extra/treesitter/parsers"
+    print(treesitter_base)
+    vim.opt.runtimepath:append(treesitter_base)
+
+    require("nvim-treesitter.configs").setup({
+        parser_install_dir = treesitter_base
+    })
+    local want_lang = {"c", "go", "json", "bash", "lua", "rust", "help", "vim"}
+    -- only use our paser or it will have probolem
+    print("all parser base" .. inspect(vim.api.nvim_get_runtime_file('parser', true)))
+    print("expect paeser base " .. treesitter_base .. "\n")
+    for _, p in ipairs(vim.api.nvim_get_runtime_file('parser', true)) do
+        print(p .. " vs " .. treesitter_base .. "\n")
+        if not str_contains(p, treesitter_base) then
+            exec(F "rm -rf {p}")
+        end
+    end
+
+    for _, lang in ipairs(want_lang) do
+        local installed = #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", false) > 0
+        print(F "{lang} {installed}")
+    end
+    require("nvim-treesitter.install").ensure_installed_sync(want_lang)
+end
 
 vim.cmd(":exit")

@@ -17,28 +17,34 @@ function nvim-init() (
 
 function nvim-test() {
   nvim-init
-  local nvim="../nvim-linux64/bin/nvim"
-  local nvim="nvim"
-  $nvim --headless --noplugin -u ./init.test.lua -c "PlenaryBustedDirectory tests {minimal_init = 'tests/init.lua'}"
-}
-
-function nvim-docker-init-nvim() {
-  ln -s $PWD/../nvim-linux64/bin/nvim /bin
+  nvim --headless --noplugin -u ./init.test.lua -c "PlenaryBustedDirectory tests {minimal_init = 'tests/init.lua'}"
 }
 
 function nvim-build() {
+  if ! [ -x "$(command -v nvim)" ]; then
+    echo "nvim not exist"
+    if [ ! -d ./nvim-linux64 ]; then
+      echo "local nvim not exist"
+      wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
+      tar -xf nvim-linux64.tar.gz
+      rm ./nvim-linux64.tar.gz
+      rm -rf /usr/bin/nvim
+      ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/nvim
+      ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/vim
+    fi
+  fi
+
   nvim-init
-  local nvim="../nvim-linux64/bin/nvim"
-  local nvim="nvim"
-  $nvim --headless --noplugin -u ./serious/init.lua
+  nvim --headless --noplugin -u ./serious/init.lua
 }
 
 function nvim-run() (
   nvim-init
 )
+
 function nvim-run-docker() (
   nvim-init
-  docker run -v $PWD:/test-nvim -it m-vim:local bash
+  docker run --rm --name nvim -v $PWD:/mc -it m-vim:local bash
 )
 
 function nvim-build-docker() (
