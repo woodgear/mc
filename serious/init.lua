@@ -30,6 +30,7 @@ local exec = function(cmd, cwd)
     return result
 end
 local CACHE = "~/.nvim_modules"
+exec(F "mkdir -p {CACHE}")
 local has_cache = function(name)
     local out = str_trim(exec(F "file {CACHE}/{name}"))
     local expect = F "{name}: directory"

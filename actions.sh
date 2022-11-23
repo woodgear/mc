@@ -38,7 +38,6 @@ function nvim-run() (
 )
 function nvim-run-docker() (
   nvim-init
-  cd ../
   docker run -v $PWD:/test-nvim -it m-vim:local bash
 )
 
