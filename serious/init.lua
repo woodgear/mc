@@ -44,6 +44,7 @@ local has_install = function(name)
     local expect = F "{name}: directory"
     return str_contains(out, expect)
 end
+
 local PKG_BASE = "./.nvim_modules/pack/nvimp/start"
 exec(F "mkdir -p {PKG_BASE}")
 for _, pkg in ipairs(pkg) do
@@ -96,5 +97,15 @@ do
     end
     require("nvim-treesitter.install").ensure_installed_sync(want_lang)
 end
+
+--- web icon
+exec([[
+mkdir -p ./.nvim_modules/extra/nerd-fonts
+cd ./.nvim_modules/extra/nerd-fonts
+if [ ! -f ./nerd-fonts/NerdFontComplete.otf ] ;then
+  curl -fLo "NerdFontComplete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+fi
+sudo cp ./NerdFontComplete.otf /usr/share/fonts
+]])
 
 vim.cmd(":exit")
