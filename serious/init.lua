@@ -69,7 +69,6 @@ for _, pkg in ipairs(pkg) do
     ::continue::
 end
 print(exec(F "tree -L 1 {PKG_BASE}"))
-exec(F "mkdir -p {PKG_BASE}/site/extra/treesitter/parsers")
 
 -- tree sitter extra
 do
@@ -102,10 +101,55 @@ end
 exec([[
 mkdir -p ./.nvim_modules/extra/nerd-fonts
 cd ./.nvim_modules/extra/nerd-fonts
-if [ ! -f ./nerd-fonts/NerdFontComplete.otf ] ;then
+if [ ! -f ./NerdFontComplete.otf ] ;then
   curl -fLo "NerdFontComplete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
 fi
-sudo cp ./NerdFontComplete.otf /usr/share/fonts
+if [ ! -f /usr/share/fonts/NerdFontComplete.otf ] ;then
+    sudo cp ./NerdFontComplete.otf /usr/share/fonts
+fi
 ]])
-
+--  lsp
+do
+    local mason_base = vim.fn.stdpath("data") .. "/site/extra/mason"
+    print(mason_base)
+    exec(F "mkdir -p {mason_base}")
+    local settings = require "mason.settings"
+    settings.set({
+        -- log_level = vim.log.levels.DEBUG,
+        install_root_dir = mason_base
+    })
+    local registry = require "mason-registry"
+    local server_mapping = require "mason-lspconfig.mappings.server"
+    local function resolve_package(lspconfig_server_name)
+        return pcall(function()
+            return registry.get_package(server_mapping.lspconfig_to_package[lspconfig_server_name])
+        end)
+    end
+    local pkgs = {"sumneko_lua", "rust_analyzer"}
+    local Package = require "mason-core.package"
+    local installer = require "mason-core.installer"
+    local a = require "mason-core.async"
+    for _, p in ipairs(pkgs) do
+        local server_name, version = Package.Parse(p)
+        local ok, pkg = resolve_package(server_name)
+        if not ok then
+            panic("sth wrong " .. vim.inspect(pkg) .. " " .. vim.inspect(ok))
+        end
+        print(server_name, pkg.name, vim.inspect(registry.get_installed_package_names()))
+        if pkg:is_installed() then
+            goto continue
+        end
+        print(vim.inspect(pkg:is_installed()))
+        local handle = pkg:new_handle()
+        local ret = a.run_blocking(function()
+            return installer.execute(handle, {
+                requested_version = version,
+                debug = true
+            })
+        end)
+        print(vim.inspect(ret))
+        print(vim.inspect(pkg:is_installed()))
+        ::continue::
+    end
+end
 vim.cmd(":exit")
