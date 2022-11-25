@@ -1,5 +1,4 @@
 local base = vim.fn.stdpath("data") .. "/site/extra/treesitter/parsers"
-print(base)
 vim.opt.runtimepath:append(base)
 
 require'nvim-treesitter.configs'.setup {
