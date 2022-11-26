@@ -9,6 +9,9 @@ set encoding=utf-8
 set termguicolors
 set nu
 set autoindent expandtab tabstop=2 shiftwidth=2
+
+tnoremap <Esc> <C-\><C-n>
+
 ]])
 
 vim.api.nvim_create_user_command("ConfigReloadAll", function()
@@ -20,3 +23,11 @@ vim.api.nvim_create_user_command("ConfigReloadAll", function()
     dofile(init_path)
     log.info("reload over " .. init_path)
 end, {})
+
+
+require("catppuccin").setup({
+    transparent_background = false,
+    term_colors = false,
+})
+
+vim.cmd[[colorscheme catppuccin-latte ]]

@@ -20,7 +20,9 @@ local pkgs = {
     { "https://github.com/nvim-treesitter/nvim-treesitter" },
     { "https://github.com/nvim-lua/plenary.nvim" },
     { "https://github.com/williamboman/mason.nvim" },
-    { "https://github.com/williamboman/mason-lspconfig.nvim" }
+    { "https://github.com/williamboman/mason-lspconfig.nvim" },
+    { "https://github.com/catppuccin/nvim" },
+    { "https://github.com/nvim-lualine/lualine.nvim" }
   }
 }
 -- LuaFormatter on
