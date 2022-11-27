@@ -26,8 +26,8 @@ local pkgs = {
     { "https://github.com/hrsh7th/cmp-buffer" },
     { "https://github.com/hrsh7th/cmp-path" },
     { "https://github.com/hrsh7th/cmp-cmdline" },
-
     { "https://github.com/numToStr/Comment.nvim" },
+    { "https://github.com/j-hui/fidget.nvim" }
   }
 }
 -- LuaFormatter on
