@@ -7,10 +7,6 @@ local pkgs = {
     { "https://github.com/kyazdani42/nvim-web-devicons" },
     { "https://github.com/MunifTanjim/nui.nvim" },
     { "https://github.com/nvim-telescope/telescope.nvim" },
-    { "https://github.com/hrsh7th/cmp-nvim-lsp" },
-    { "https://github.com/hrsh7th/cmp-buffer" },
-    { "https://github.com/hrsh7th/cmp-path" },
-    { "https://github.com/hrsh7th/cmp-cmdline" },
     { "https://github.com/hrsh7th/nvim-cmp" },
     { "https://github.com/Pocco81/auto-save.nvim" },
     { "https://github.com/neovim/nvim-lspconfig" },
@@ -22,7 +18,16 @@ local pkgs = {
     { "https://github.com/williamboman/mason.nvim" },
     { "https://github.com/williamboman/mason-lspconfig.nvim" },
     { "https://github.com/catppuccin/nvim" },
-    { "https://github.com/nvim-lualine/lualine.nvim" }
+    { "https://github.com/nvim-lualine/lualine.nvim" },
+    { "https://github.com/ellisonleao/gruvbox.nvim" },
+
+    -- comp
+    { "https://github.com/hrsh7th/cmp-nvim-lsp" },
+    { "https://github.com/hrsh7th/cmp-buffer" },
+    { "https://github.com/hrsh7th/cmp-path" },
+    { "https://github.com/hrsh7th/cmp-cmdline" },
+
+    { "https://github.com/numToStr/Comment.nvim" },
   }
 }
 -- LuaFormatter on

@@ -18,15 +18,17 @@ vim.api.nvim_create_user_command("ConfigReloadAll", function()
     log.info "reload start"
     vimp.unmap_all()
     util.unload_lua_namespace "mc"
+    -- TODO will report error if a no name buffer exisit
     vim.cmd("silent wa")
     local init_path = vim.fn.stdpath "config" .. "/init.lua"
     dofile(init_path)
     log.info("reload over " .. init_path)
 end, {})
 
-
+-- need to set you terminal color either
+-- https://github.com/catppuccin/gnome-terminal
 require("catppuccin").setup({
-    transparent_background = false,
+    transparent_background = true,
     term_colors = false,
 })
 
