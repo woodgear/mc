@@ -1,9 +1,8 @@
-
 -- actions: toggle-comment
 require('Comment').setup(
   {
-    toggler = {
+    opleader = {
       line = 'ci',
-    },
+    }
   }
 )
