@@ -28,8 +28,8 @@ end, {})
 -- need to set you terminal color either
 -- https://github.com/catppuccin/gnome-terminal
 require("catppuccin").setup({
-    transparent_background = true,
+    transparent_background = false,
     term_colors = false,
 })
 
-vim.cmd[[colorscheme catppuccin-latte ]]
+vim.cmd[[colorscheme catppuccin-mocha ]]
