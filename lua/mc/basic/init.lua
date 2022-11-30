@@ -29,11 +29,5 @@ end
 vim.api.nvim_create_user_command("ConfigReloadAll", a_config_readload_all, {})
 vim.keymap.set('n', '<leader>rr', a_config_readload_all, {})
 
--- need to set you terminal color either
--- https://github.com/catppuccin/gnome-terminal
-require("catppuccin").setup({
-  transparent_background = true,
-  term_colors = false,
-})
 
-vim.cmd [[colorscheme catppuccin-latte ]]
+vim.cmd[[colorscheme catppuccin-mocha ]]
