@@ -1,0 +1,12 @@
+{
+    "workspace": {
+        "maxPreload": 1600,
+        "preloadFileSize": 1000,
+        "ignoreDir": [
+            "/.vscode",
+            "./.nvim_modules/",
+            "/home/cong/sm/pv/mc/.nvim_modules"
+        ],
+        "checkThirdParty": false
+    },
+}

@@ -14,22 +14,26 @@ tnoremap <Esc> <C-\><C-n>
 
 ]])
 
-vim.api.nvim_create_user_command("ConfigReloadAll", function()
-    log.info "reload start"
-    vimp.unmap_all()
-    util.unload_lua_namespace "mc"
-    -- TODO will report error if a no name buffer exisit
-    vim.cmd("silent wa")
-    local init_path = vim.fn.stdpath "config" .. "/init.lua"
-    dofile(init_path)
-    log.info("reload over " .. init_path)
-end, {})
+local a_config_readload_all = function()
+  log.info "reload start"
+  vimp.unmap_all()
+  util.unload_lua_namespace "mc"
+  util.unload_lua_namespace "telescope"
+  -- TODO will report error if a no name buffer exisit
+  vim.cmd("silent wa")
+  local init_path = vim.fn.stdpath "config" .. "/init.lua"
+  dofile(init_path)
+  log.info("reload over " .. init_path)
+end
+
+vim.api.nvim_create_user_command("ConfigReloadAll", a_config_readload_all, {})
+vim.keymap.set('n', '<leader>rr', a_config_readload_all, {})
 
 -- need to set you terminal color either
 -- https://github.com/catppuccin/gnome-terminal
 require("catppuccin").setup({
-    transparent_background = true,
-    term_colors = false,
+  transparent_background = true,
+  term_colors = false,
 })
 
-vim.cmd[[colorscheme catppuccin-latte ]]
+vim.cmd [[colorscheme catppuccin-latte ]]
