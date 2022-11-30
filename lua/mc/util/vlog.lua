@@ -8,7 +8,7 @@
 -- User configuration section
 local default_config = {
     -- Name of the plugin. Prepended to log messages
-    plugin = 'vlog.nvim',
+    plugin = 'mc.vlog.nvim',
 
     -- Should log.info the output to neovim while running
     use_console = false,
