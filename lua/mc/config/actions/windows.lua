@@ -6,7 +6,7 @@ for i = 0, MAX_WIN_INDEX, 1 do
   local index = i
   local jto = function()
     local x = index
-    execute(x.." wincmd w")
+    execute(x .. " wincmd w")
   end
-  vimp.nnoremap("<leader>"..index, jto)
+  vimp.nnoremap("<leader>" .. index, jto)
 end

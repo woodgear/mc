@@ -29,5 +29,8 @@ end
 vim.api.nvim_create_user_command("ConfigReloadAll", a_config_readload_all, {})
 vim.keymap.set('n', '<leader>rr', a_config_readload_all, {})
 
-
-vim.cmd[[colorscheme catppuccin-mocha ]]
+-- style
+do
+  vim.g.starry_disable_background = true
+  require('starry.functions').change_style("dracula")
+end

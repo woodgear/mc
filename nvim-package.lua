@@ -17,7 +17,7 @@ local pkgs = {
     { "https://github.com/nvim-lua/plenary.nvim" },
     { "https://github.com/williamboman/mason.nvim" },
     { "https://github.com/williamboman/mason-lspconfig.nvim" },
-    { "https://github.com/catppuccin/nvim" },
+    { "https://github.com/ray-x/starry.nvim" },
     { "https://github.com/nvim-lualine/lualine.nvim" },
     { "https://github.com/ellisonleao/gruvbox.nvim" },
 
@@ -27,7 +27,9 @@ local pkgs = {
     { "https://github.com/hrsh7th/cmp-path" },
     { "https://github.com/hrsh7th/cmp-cmdline" },
     { "https://github.com/numToStr/Comment.nvim" },
-    { "https://github.com/j-hui/fidget.nvim" }
+    { "https://github.com/j-hui/fidget.nvim" },
+    { "https://github.com/simrat39/symbols-outline.nvim" },
+    { "https://github.com/jose-elias-alvarez/null-ls.nvim" }
 
   }
 }
