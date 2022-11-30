@@ -50,21 +50,28 @@ exec(F "mkdir -p {PKG_BASE}")
 for _, pkg in ipairs(pkg) do
   local p = pkg[1]
   local name = ""
-  if #pkg == 1 then
+  local full_url = p
+  if #pkg ~= 1 then
+    print("unsupport fmt " .. vim.inspect(pkg))
+    panic()
+  end
+  if not str_contains(p, "github") then
+    full_url = "https://github.com/" .. p
     local ns = str_split(p, "/")
     name = ns[#ns]
   else
-    name = pkg[2]
+    local ns = str_split(p, "/")
+    full_url = p
+    name = ns[#ns]
   end
   if has_install(name) then
     print(F "{name} installed continue")
     goto continue
   end
   if not has_cache(name) then
-    print(F "clone {p} {name}")
-    exec(F "git clone {p}", CACHE)
+    print(F "clone {full_url} -> {name}")
+    exec(F "git clone {full_url}", CACHE)
   end
-  print(F "cp {p}")
   exec(F "cp -r {CACHE}/{name} {PKG_BASE}")
   ::continue::
 end
