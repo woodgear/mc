@@ -24,7 +24,7 @@ end
 
 local a_find_function_in_project = function()
   local builtin = require('telescope.builtin')
-  builtin.lsp_workspace_symbols({ symbols = { "method", "function" } })
+  builtin.lsp_workspace_symbols()
 end
 
 vim.keymap.set('n', '<leader>kk', a_find_file_in_project, {})
