@@ -28,11 +28,11 @@ function nvim-build() {
       wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
       tar -xf nvim-linux64.tar.gz
       rm ./nvim-linux64.tar.gz
-      sudo rm -rf /usr/bin/nvim
-      sudo rm -rf /usr/bin/vim
-      sudo ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/nvim
-      sudo ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/vim
     fi
+    sudo rm -rf /usr/bin/nvim
+    sudo rm -rf /usr/bin/vim
+    sudo ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/nvim
+    sudo ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/vim
   fi
 
   nvim-init
