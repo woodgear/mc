@@ -16,7 +16,8 @@ jobs:
       - checkout
       - run:
           name: "test"
-          command: "uname -a && ls"
+          command: "source ./actions.sh;nvim-build"
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
