@@ -1,11 +1,15 @@
 require("mc.config.actions.openfile")
 require("mc.config.actions.windows")
 require("mc.config.actions.terminal")
+local log = require("mc.util.vlog")
 
 
 
 local a_find_file_in_project = function()
-  require'telescope.builtin'.find_files({find_command={'fd',"-L", vim.fn.expand("<cword>")}})
+  local root = vim.fn.getcwd()
+  local word = vim.fn.expand("<cword>")
+  log.info("cwd", root, "word", word)
+  require 'telescope.builtin'.find_files({ find_command = { 'fd', "-L","-H", ".", root } })
 end
 
 local a_find_buffer_in_project = function()
