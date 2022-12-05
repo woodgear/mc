@@ -2,9 +2,10 @@ require("mc.config.actions.openfile")
 require("mc.config.actions.windows")
 require("mc.config.actions.terminal")
 
+
+
 local a_find_file_in_project = function()
-  local builtin = require('telescope.builtin')
-  builtin.find_files()
+  require'telescope.builtin'.find_files({find_command={'fd',"-L", vim.fn.expand("<cword>")}})
 end
 
 local a_find_buffer_in_project = function()

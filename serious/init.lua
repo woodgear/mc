@@ -51,9 +51,14 @@ for _, pkg in ipairs(pkg) do
   local p = pkg[1]
   local name = ""
   local full_url = p
+  local submodule = false
   if #pkg ~= 1 then
-    print("unsupport fmt " .. vim.inspect(pkg))
-    panic()
+    p=pkg.repo
+    full_url=pkg.url
+    if full_url == nil then
+      full_url = "https://github.com/" .. name
+    end
+    submodule = pkg.submodule
   end
   if not str_contains(p, "github") then
     full_url = "https://github.com/" .. p
@@ -72,6 +77,12 @@ for _, pkg in ipairs(pkg) do
     print(F "clone {full_url} -> {name}")
     exec(F "git clone {full_url}", CACHE)
   end
+  if submodule then
+    print(F "update submodule {name}")
+    exec("git submodule init",F"{CACHE}/{name}")
+    exec("git submodule update",F"{CACHE}/{name}")
+  end
+
   exec(F "cp -r {CACHE}/{name} {PKG_BASE}")
   ::continue::
 end
