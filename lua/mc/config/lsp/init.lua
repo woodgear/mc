@@ -60,7 +60,7 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup({
-    ensure_installed = {"sumneko_lua", "rust_analyzer"},
+    ensure_installed = {"sumneko_lua", "rust_analyzer","pylsp"},
     automatic_installation = false
 })
 
@@ -96,5 +96,9 @@ require("lspconfig").bashls.setup {
 }
 
 require("lspconfig").rust_analyzer.setup {
+    on_attach = on_attach
+}
+
+require("lspconfig").pylsp.setup {
     on_attach = on_attach
 }

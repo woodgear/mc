@@ -19,6 +19,7 @@ local a_config_readload_all = function()
   vimp.unmap_all()
   util.unload_lua_namespace "mc"
   util.unload_lua_namespace "telescope"
+  util.unload_lua_namespace "luasnip"
   -- TODO will report error if a no name buffer exisit
   vim.cmd("silent wa")
   local init_path = vim.fn.stdpath "config" .. "/init.lua"
@@ -34,3 +35,4 @@ do
   vim.g.starry_disable_background = true
   require('starry.functions').change_style("dracula")
 end
+
