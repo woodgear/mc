@@ -9,7 +9,7 @@ local a_find_file_in_project = function()
   local cwd = vim.fn.getcwd()
   local util = require 'lspconfig.util'
   local root = util.find_git_ancestor(cwd)
-  log.info("find file cwd "..cwd.." root "..root)
+  log.info("find file cwd " .. cwd .. " root " .. root)
   require 'telescope.builtin'.find_files({ find_command = { 'fd', "-L", "-H", ".", root } })
 end
 
@@ -33,8 +33,13 @@ local a_find_function_in_project = function()
   builtin.lsp_workspace_symbols()
 end
 
+local a_code_actions = function()
+  vim.lsp.buf.code_action()
+end
+
 vim.keymap.set('n', '<leader>kk', a_find_file_in_project, {})
 vim.keymap.set('n', '<leader>ff', a_find_buffer_in_project, {})
 vim.keymap.set('n', '<leader>qq', a_find_string_in_project, {})
 vim.keymap.set('n', '<leader>ii', a_find_function_in_current_file, {})
 vim.keymap.set('n', '<leader>ai', a_find_function_in_project, {})
+vim.keymap.set('n', '<leader>ca', a_code_actions, {})

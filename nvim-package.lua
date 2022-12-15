@@ -31,6 +31,7 @@ local pkgs = {
     { "https://github.com/simrat39/symbols-outline.nvim" },
     { "https://github.com/jose-elias-alvarez/null-ls.nvim" },
     { "fgheng/winbar.nvim" },
+    { "nvim-telescope/telescope-ui-select.nvim" },
   }
 }
 -- LuaFormatter on

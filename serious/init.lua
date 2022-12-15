@@ -128,6 +128,8 @@ fi
 ]])
 --  lsp
 do
+  -- python
+  exec(F "python3 -m pip install --user virtualenv")
   local mason_base = vim.fn.stdpath("data") .. "/site/extra/mason"
   print(mason_base)
   exec(F "mkdir -p {mason_base}")

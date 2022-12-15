@@ -6,6 +6,8 @@ require("mc.config.actions")
 require("mc.config.comp")
 require("mc.config.comment")
 require("mc.config.snip")
+require("mc.config.null-ls")
+require("mc.config.telescope")
 
 require("auto-save").setup({
   enabled = true

@@ -17,9 +17,11 @@ tnoremap <Esc> <C-\><C-n>
 local a_config_readload_all = function()
   log.info "reload start"
   vimp.unmap_all()
+  -- util.unload_all_lua_namespace()
   util.unload_lua_namespace "mc"
   util.unload_lua_namespace "telescope"
   util.unload_lua_namespace "luasnip"
+  util.unload_lua_namespace "null-ls"
   -- TODO will report error if a no name buffer exisit
   vim.cmd("silent wa")
   local init_path = vim.fn.stdpath "config" .. "/init.lua"
