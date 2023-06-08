@@ -1,4 +1,3 @@
-require("mc.config.actions.openfile")
 require("mc.config.actions.windows")
 require("mc.config.actions.terminal")
 local log = require("mc.util.vlog")
@@ -9,8 +8,8 @@ local a_find_file_in_project = function()
   local cwd = vim.fn.getcwd()
   local util = require 'lspconfig.util'
   local root = util.find_git_ancestor(cwd)
-  log.info("find file cwd " .. cwd .. " root " .. root)
-  require 'telescope.builtin'.find_files({ find_command = { 'fd', "-L", "-H", ".", root } })
+  log.info("find file cwd " .. cwd .. " root " .. tostring(root))
+  require 'telescope.builtin'.find_files({ find_command = { 'fd', "--exclude",".git","-L", "-H", ".", root } })
 end
 
 local a_find_buffer_in_project = function()
@@ -30,7 +29,7 @@ end
 
 local a_find_function_in_project = function()
   local builtin = require('telescope.builtin')
-  builtin.lsp_workspace_symbols()
+  builtin.lsp_workspace_symbols({ symbols = { "method", "function" } })
 end
 
 local a_code_actions = function()

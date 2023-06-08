@@ -9,7 +9,7 @@ set encoding=utf-8
 set termguicolors
 set nu
 set autoindent expandtab tabstop=2 shiftwidth=2
-
+set clipboard+=unnamedplus
 tnoremap <Esc> <C-\><C-n>
 
 ]])
@@ -31,7 +31,6 @@ end
 
 vim.api.nvim_create_user_command("ConfigReloadAll", a_config_readload_all, {})
 vim.keymap.set('n', '<leader>rr', a_config_readload_all, {})
-
 -- style
 do
   vim.g.starry_disable_background = true

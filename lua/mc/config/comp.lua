@@ -42,7 +42,7 @@ local kind_icons = {
   Operator = "",
   TypeParameter = "",
 }
--- find more here: https://www.nerdfonts.com/cheat-sheet
+
 
 cmp.setup {
   snippet = {
@@ -110,6 +110,7 @@ cmp.setup {
   },
   sources = {
     { name = "luasnip" },
+    { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
   },
@@ -126,3 +127,8 @@ cmp.setup {
   },
 }
 
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)

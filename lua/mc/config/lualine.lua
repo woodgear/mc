@@ -3,10 +3,15 @@ local function windows_index()
   return vim.fn.winnr()
 end
 
+local function custom()
+  return vim.g.custom_title
+end
+
+sections = { lualine_a = { hello } }
 require('lualine').setup {
   options = { fmt = string.lower },
   sections = {
-    lualine_a = { windows_index, 'mode' },
+    lualine_a = { windows_index, 'mode' ,custom},
     lualine_b = { 'branch', 'diff', 'diagnostics' },
     lualine_c = { 'filename' },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },

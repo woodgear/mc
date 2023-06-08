@@ -32,6 +32,10 @@ local pkgs = {
     { "https://github.com/jose-elias-alvarez/null-ls.nvim" },
     { "fgheng/winbar.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
+    { "phaazon/hop.nvim" },
+    { "windwp/nvim-autopairs" },
+    { "kylechui/nvim-surround" },
+    { "nvim-tree/nvim-tree.lua" }
   }
 }
 -- LuaFormatter on

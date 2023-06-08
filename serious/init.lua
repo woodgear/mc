@@ -146,7 +146,7 @@ do
     end)
   end
 
-  local pkgs = { "sumneko_lua", "rust_analyzer", "gopls", "bashls" ,"pylsp"}
+  local pkgs = { "sumneko_lua", "rust_analyzer", "gopls", "bashls" ,"pylsp","yamlls"}
   local Package = require "mason-core.package"
   local installer = require "mason-core.installer"
   local a = require "mason-core.async"
