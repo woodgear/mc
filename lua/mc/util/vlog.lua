@@ -56,6 +56,7 @@ log.new = function(config, standalone)
     config = vim.tbl_deep_extend("force", default_config, config)
 
     local outfile = string.format('%s/%s.log', vim.api.nvim_call_function('stdpath', {'data'}), config.plugin)
+    print("log location: " .. outfile)
     local obj
     if standalone then
         obj = log
