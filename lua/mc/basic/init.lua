@@ -16,7 +16,6 @@ tnoremap <Esc> <C-\><C-n>
 ]])
 
 local a_config_readload_all = function()
-<<<<<<< HEAD
     log.info "reload start"
     toast.showFloatingMsg("action: reload-config")
     vimp.unmap_all()
@@ -28,20 +27,6 @@ local a_config_readload_all = function()
     vim.cmd("silent wa")
     dofile(init_path)
     log.info("reload over " .. init_path)
-=======
-  log.info "reload start"
-  vimp.unmap_all()
-  -- util.unload_all_lua_namespace()
-  util.unload_lua_namespace "mc"
-  util.unload_lua_namespace "telescope"
-  util.unload_lua_namespace "luasnip"
-  util.unload_lua_namespace "null-ls"
-  -- TODO will report error if a no name buffer exisit
-  vim.cmd("silent wa")
-  local init_path = vim.fn.stdpath "config" .. "/init.lua"
-  dofile(init_path)
-  log.info("reload over " .. init_path)
->>>>>>> 2b8c18249813490b1bf0bbdfcc022d199fbae739
 end
 
 vim.api.nvim_create_user_command("ConfigReloadAll", a_config_readload_all, {})

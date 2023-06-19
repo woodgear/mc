@@ -12,7 +12,6 @@ function _M.unload_all_lua_namespace()
 end
 
 function _M.unload_lua_namespace(prefix)
-<<<<<<< HEAD
     local prefix_with_dot = prefix .. '.'
     for key, _ in pairs(package.loaded) do
         -- log.info("key " .. key)
@@ -20,16 +19,7 @@ function _M.unload_lua_namespace(prefix)
             -- log.info("clean " .. key)
             package.loaded[key] = nil
         end
-=======
-  local prefix_with_dot = prefix .. '.'
-  for key, _ in pairs(package.loaded) do
-    log.info("key " .. key)
-    if key == prefix or key:sub(1, #prefix_with_dot) == prefix_with_dot then
-      log.info("clean " .. key)
-      package.loaded[key] = nil
->>>>>>> 2b8c18249813490b1bf0bbdfcc022d199fbae739
     end
-  end
 end
 
 function _M.list_to_map(list)

@@ -58,18 +58,9 @@ a_find_file_in_project = function()
     }
 end
 
-<<<<<<< HEAD
 a_find_buffer_in_project = function()
     local builtin = require('telescope.builtin')
     builtin.buffers()
-=======
-local a_find_file_in_project = function()
-  local cwd = vim.fn.getcwd()
-  local util = require 'lspconfig.util'
-  local root = util.find_git_ancestor(cwd)
-  log.info("find file cwd " .. cwd .. " root " .. tostring(root))
-  require 'telescope.builtin'.find_files({ find_command = { 'fd', "--exclude",".git","-L", "-H", ".", root } })
->>>>>>> 2b8c18249813490b1bf0bbdfcc022d199fbae739
 end
 
 a_find_string_in_project = function()
@@ -89,7 +80,6 @@ a_find_function_in_project = function()
     builtin.lsp_workspace_symbols()
 end
 
-<<<<<<< HEAD
 action_list_all_actions = function()
     return {
         name = "list-all-actions",
@@ -143,20 +133,3 @@ action_list_all_actions = function()
 end
 
 init_actions()
-=======
-local a_find_function_in_project = function()
-  local builtin = require('telescope.builtin')
-  builtin.lsp_workspace_symbols({ symbols = { "method", "function" } })
-end
-
-local a_code_actions = function()
-  vim.lsp.buf.code_action()
-end
-
-vim.keymap.set('n', '<leader>kk', a_find_file_in_project, {})
-vim.keymap.set('n', '<leader>ff', a_find_buffer_in_project, {})
-vim.keymap.set('n', '<leader>qq', a_find_string_in_project, {})
-vim.keymap.set('n', '<leader>ii', a_find_function_in_current_file, {})
-vim.keymap.set('n', '<leader>ai', a_find_function_in_project, {})
-vim.keymap.set('n', '<leader>ca', a_code_actions, {})
->>>>>>> 2b8c18249813490b1bf0bbdfcc022d199fbae739
