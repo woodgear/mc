@@ -128,6 +128,8 @@ fi
 ]])
 --  lsp
 do
+  -- python
+  exec(F "python3 -m pip install --user virtualenv")
   local mason_base = vim.fn.stdpath("data") .. "/site/extra/mason"
   print(mason_base)
   exec(F "mkdir -p {mason_base}")
@@ -144,7 +146,7 @@ do
     end)
   end
 
-  local pkgs = { "sumneko_lua", "rust_analyzer", "gopls", "bashls" ,"pylsp"}
+  local pkgs = { "sumneko_lua", "rust_analyzer", "gopls", "bashls" ,"pylsp","yamlls"}
   local Package = require "mason-core.package"
   local installer = require "mason-core.installer"
   local a = require "mason-core.async"

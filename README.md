@@ -9,5 +9,5 @@ the dream ide impl for myself
 # todo
 * more actions
 * tmux replacement
-  * * reimpl tab insdie  window
+  * * reimpl tab insdie window
 
