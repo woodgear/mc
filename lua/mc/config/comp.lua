@@ -1,3 +1,5 @@
+local log = require("mc.util.vlog")
+
 local cmp_status_ok, cmp = pcall(require, "cmp")
 
 if not cmp_status_ok then
@@ -99,20 +101,28 @@ cmp.setup {
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-      --
+      log.info("get a cmp item "..vim.inspect(vim_item)..vim.inspect(entry.source.name))
       vim_item.menu = ({
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
+        nvim_lsp = "[LSP]",
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
     { name = "luasnip" },
-    { name = "nvim_lsp" },
+    { name = "nvim_lsp",
+    entry_filter = function(entry, _)
+      return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+    end
+  },
     { name = "buffer" },
     { name = "path" },
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'vim_lsp' },
+    { name = 'nvim_lsp_document_symbol' },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
