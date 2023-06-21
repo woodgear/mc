@@ -1,6 +1,14 @@
 require("mc.config.actions.windows")
 require("mc.config.actions.terminal")
 
+
+
+local pickers = require "telescope.pickers"
+local finders = require "telescope.finders"
+local ta = require "telescope.actions"
+local action_state = require "telescope.actions.state"
+local action_set = require "telescope.actions.set"
+
 local log = require("mc.util.vlog")
 local sext = require("mc.util.string_ext")
 local api = vim.api
@@ -70,22 +78,94 @@ end
 
 -- l-ide-jump-to-file
 a_find_file_in_project = function()
-    return {
-        name = "list-file-in-project",
-        keys = {{
-            mode = "n",
-            key = "<leader>kk"
-        }},
-        fn = function()
-            local cwd = vim.fn.getcwd()
-            local util = require 'lspconfig.util'
-            local root = util.find_git_ancestor(cwd)
-            log.info("find file cwd " .. cwd .. " root " .. root)
-            require'telescope.builtin'.find_files({
-                find_command = {'fd', "-L", "-H", ".", root}
-            })
+
+  local on_select_path = (function (p)
+      log.info("in find file in project sel path", p)
+
+      local tree_api = require("nvim-tree.api")
+
+      local check_path= function(path)
+        local luv = vim.loop
+        -- Check if the path exists
+        if luv.fs_stat(path) then
+          -- Path exists
+          local file_type = luv.fs_stat(path).type
+          if file_type == 'file' then
+            return "file"
+          elseif file_type == 'directory' then
+            return "dir"
+          else
+            return "unknow-type"
+          end
+        else
+          -- Path does not exist
+          return "no-exist"
         end
-    }
+      end
+
+      local f_type = check_path(p)
+      if f_type == "file" then
+          vim.api.nvim_command('edit '..p)
+      elseif f_type == "dir" then
+          log.info("is a dir "..p)
+          tree_api.tree.find_file({buf=p,focus=true,open=true})
+          local node = require("nvim-tree.lib").get_node_at_cursor()
+          require("nvim-tree.lib").expand_or_collapse(node)
+      else
+          log.info("?? "..p..f_type)
+      end
+
+
+
+
+
+
+
+
+
+      -- if is file open it in current view
+      -- if if dir focus on side and expand this dir
+  end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return {
+      name = "list-file-in-project",
+      keys = {{
+          mode = "n",
+          key = "<leader>kk"
+      }},
+      fn = function()
+          local cwd = vim.fn.getcwd()
+          local util = require 'lspconfig.util'
+          local root = util.find_git_ancestor(cwd)
+          log.info("find file cwd " .. cwd .. " root " .. root)
+          require'telescope.builtin'.find_files({
+              find_command = {'fd', "-L", "-H", ".", root},
+              attach_mappings = function(prompt_bufnr, _)
+                  ta.select_default:replace(function()
+                      ta.close(prompt_bufnr)
+                      local selection = action_state.get_selected_entry()
+                      local path = selection[1]
+                      on_select_path(path)
+                  end)
+                  return true
+              end
+          })
+      end
+  }
 end
 
 a_find_buffer_in_project = function()
@@ -119,13 +199,8 @@ action_list_all_actions = function()
             key = "<leader>xm"
         }},
         fn = function()
-            local pickers = require "telescope.pickers"
-            local finders = require "telescope.finders"
             local conf = require("telescope.config").values
             local opts = require("telescope.themes").get_dropdown {}
-            local ta = require "telescope.actions"
-            local action_state = require "telescope.actions.state"
-            local action_set = require "telescope.actions.set"
             local actions = {}
             for k, a in pairs(ALL_ACTIONS) do
                 local a_entry = {k, a.name}
