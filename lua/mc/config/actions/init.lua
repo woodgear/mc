@@ -1,4 +1,4 @@
-require("mc.config.actions.windows")
+require("mc.config.actions.panels")
 require("mc.config.actions.terminal")
 
 
@@ -114,32 +114,7 @@ a_find_file_in_project = function()
       else
           log.info("?? "..p..f_type)
       end
-
-
-
-
-
-
-
-
-
-      -- if is file open it in current view
-      -- if if dir focus on side and expand this dir
   end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return {
       name = "list-file-in-project",
