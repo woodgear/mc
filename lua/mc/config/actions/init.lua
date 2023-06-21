@@ -13,6 +13,9 @@ local a_find_buffer_in_project
 local a_find_string_in_project
 local a_find_function_in_current_file
 local a_find_function_in_project
+local a_delete_current_file
+local a_toggle_side
+
 local ALL_ACTIONS = {}
 init_actions = function()
     local actions = gen_actions()
@@ -36,9 +39,36 @@ init_actions = function()
 end
 
 gen_actions = function()
-    return {action_list_all_actions(), a_find_file_in_project()}
+    return {
+      action_list_all_actions(),
+      a_find_file_in_project(),
+      a_delete_current_file(),
+      a_toggle_side()
+    }
 end
 
+a_delete_current_file = function()
+    return {
+        name = "delete-current-file",
+        fn = function()
+             local filename = vim.api.nvim_buf_get_name(0)
+             os.remove(filename)
+             vim.api.nvim_command(':bd!')
+        end
+    }
+end
+
+a_toggle_side = function()
+
+    return {
+        name = "toggle-side",
+        fn = function()
+             vim.api.nvim_command(':NvimTreeToggle')
+        end
+    }
+end
+
+-- l-ide-jump-to-file
 a_find_file_in_project = function()
     return {
         name = "list-file-in-project",
@@ -80,6 +110,7 @@ a_find_function_in_project = function()
     builtin.lsp_workspace_symbols()
 end
 
+-- l-ide-eval-actions
 action_list_all_actions = function()
     return {
         name = "list-all-actions",
