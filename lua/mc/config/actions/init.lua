@@ -117,7 +117,7 @@ a_find_file_in_project = function()
   end)
 
   return {
-      name = "list-file-in-project",
+      name = "find-file-in-project",
       keys = {{
           mode = "n",
           key = "<leader>kk"
@@ -128,7 +128,7 @@ a_find_file_in_project = function()
           local root = util.find_git_ancestor(cwd)
           log.info("find file cwd " .. cwd .. " root " .. root)
           require'telescope.builtin'.find_files({
-              find_command = {'fd', "-L", "-H", ".", root},
+              find_command = {'fd',"-t","f","--exclude",".git", "-L", "-H", ".", root},
               attach_mappings = function(prompt_bufnr, _)
                   ta.select_default:replace(function()
                       ta.close(prompt_bufnr)
