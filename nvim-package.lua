@@ -27,6 +27,8 @@ local pkgs = {
     { "https://github.com/hrsh7th/cmp-path" },
     { "https://github.com/hrsh7th/cmp-cmdline" },
     { "https://github.com/numToStr/Comment.nvim" },
+
+
     { "https://github.com/j-hui/fidget.nvim" },
     { "https://github.com/simrat39/symbols-outline.nvim" },
     { "https://github.com/jose-elias-alvarez/null-ls.nvim" },
@@ -35,7 +37,9 @@ local pkgs = {
     { "phaazon/hop.nvim" },
     { "windwp/nvim-autopairs" },
     { "kylechui/nvim-surround" },
-    { "nvim-tree/nvim-tree.lua" }
+    { "nvim-tree/nvim-tree.lua" },
+
+    { "lukas-reineke/indent-blankline.nvim" },
   }
 }
 -- LuaFormatter on

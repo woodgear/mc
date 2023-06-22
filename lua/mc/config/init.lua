@@ -1,4 +1,3 @@
---[[ require("mc.config.neo-tree") ]]
 require("mc.config.treesitter")
 require("mc.config.lualine") --底部状态栏
 require("mc.config.lsp")
@@ -27,3 +26,14 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 require("nvim-tree").setup()
+
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol: "
+
+require("indent_blankline").setup {
+  char = "",
+  space_char_blankline = " ",
+  show_current_context = true,
+  show_current_context_start = true,
+}
