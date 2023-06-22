@@ -101,7 +101,6 @@ cmp.setup {
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-      log.info("get a cmp item "..vim.inspect(vim_item)..vim.inspect(entry.source.name))
       vim_item.menu = ({
         luasnip = "[Snippet]",
         buffer = "[Buffer]",

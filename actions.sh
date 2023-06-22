@@ -36,7 +36,7 @@ function nvim-build() {
   fi
 
   nvim-init
-  nvim --headless --noplugin -u ./serious/main.lua
+  nvim --headless --noplugin -u ./serious/outside.lua
 }
 
 function nvim-run() (
