@@ -1,4 +1,6 @@
+local log = require("mc.util.vlog")
 local base = vim.fn.stdpath("data") .. "/site/extra/treesitter/parsers"
+
 vim.opt.runtimepath:append(base)
 
 -- textobjects not worked at all !!!
@@ -32,9 +34,12 @@ require 'nvim-treesitter.configs'.setup {
       enable = true,
       -- Automatically jump forward to textobj, similar to targets.vim
       lookahead = true,
+      on_not_selected = function (query_string, query_group, keymap_mode)
+          log.info("not select "..query_string.."  "..query_group.." "..keymap_mode)
+      end,
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
-        ["mf"] = "@function.outer",
+        ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
         -- You can optionally set descriptions to the mappings (used in the desc parameter of

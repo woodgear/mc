@@ -21,6 +21,7 @@ local a_config_readload_all = function()
     vimp.unmap_all()
     util.unload_lua_namespace "mc"
     util.unload_lua_namespace "telescope"
+    util.unload_lua_namespace "nvim-treesitter"
     util.unload_lua_namespace "luasnip"
     -- TODO will report error if a no name buffer exisit
     local init_path = vim.fn.stdpath "config" .. "/init.lua"

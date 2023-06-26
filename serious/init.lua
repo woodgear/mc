@@ -78,8 +78,13 @@ function _M.setup(opt)
       goto continue
     end
     if not has_cache(name) then
-      print(F "clone {full_url} -> {name}")
-      exec(F "git clone {full_url}", CACHE)
+      local cmd = F("git clone {full_url}")
+      if pkg["branch"] then
+        local branch = pkg["branch"]
+        cmd = F("git clone -b {branch} {full_url}")
+      end
+      print(F "{cmd} -> {name}")
+      exec(cmd, CACHE)
     end
     if submodule then
       print(F "update submodule {name}")

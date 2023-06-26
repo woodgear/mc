@@ -40,7 +40,7 @@ local pkgs = {
     { "nvim-tree/nvim-tree.lua" },
 
     { "lukas-reineke/indent-blankline.nvim" },
-    { 'nvim-treesitter/nvim-treesitter-textobjects' }
+    { 'woodgear/nvim-treesitter-textobjects',branch="feat/on-not-selected" }
   }
 }
 -- LuaFormatter on
