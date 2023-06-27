@@ -25,6 +25,7 @@ local a_delete_current_file
 local a_toggle_side
 local a_format
 local a_sync_package
+local a_focus_file
 
 local ALL_ACTIONS = {}
 init_actions = function()
@@ -55,7 +56,8 @@ gen_actions = function()
     a_delete_current_file(),
     a_toggle_side(),
     a_format(),
-    a_sync_package()
+    a_sync_package(),
+    a_focus_file(),
   }
 end
 
@@ -71,7 +73,6 @@ a_delete_current_file = function()
 end
 
 a_toggle_side = function()
-
   return {
     name = "toggle-side",
     fn = function()
@@ -80,9 +81,30 @@ a_toggle_side = function()
   }
 end
 
+a_focus_file = function()
+  local real_fn = function(opt)
+    if opt.path == nil then
+      log.info("args is empty.ignote")
+    else
+      log.info("focus " .. tostring(opt.path))
+      require("nvim-tree.actions.finders.find-file").fn(opt.path)
+    end
+  end
+
+  return {
+    name = "focus-file-on-side",
+    fn = function()
+      vim.ui.input({ prompt = "path: " }, function(input)
+        if input ~= nil then
+          real_fn({ path = input })
+        end
+      end)
+    end
+  }
+end
+
 -- l-ide-jump-to-file
 a_find_file_in_project = function()
-
   local on_select_path = (function(p)
     log.info("in find file in project sel path", p)
 
@@ -187,7 +209,7 @@ a_sync_package = function()
     name = "sync-package",
     fn = function()
       local p = vim.fn.stdpath "config"
-      vim.cmd(":luafile "..p.."/serious/inside.lua")
+      vim.cmd(":luafile " .. p .. "/serious/inside.lua")
       vim.cmd(":ConfigReloadAll")
     end
   }
@@ -230,7 +252,12 @@ action_list_all_actions = function()
             ta.close(prompt_bufnr)
             local selection = action_state.get_selected_entry()
             log.info("sel entry", selection)
-            ALL_ACTIONS[selection.value[2]].fn()
+            local action = ALL_ACTIONS[selection.value[2]]
+            if action.args then
+              action.fn(action.get_args())
+            else
+              action.fn()
+            end
           end)
           return true
         end
