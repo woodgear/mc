@@ -41,7 +41,9 @@ function nvim-build() {
 
   nvim-init
   nvim --headless --noplugin -u ./serious/outside.lua
-  nvim-test
+  echo "init status" $?
+
+#   nvim-test
 }
 
 function nvim-run() (

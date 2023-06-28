@@ -50,56 +50,34 @@ local has_install = function(name)
 end
 
 function _M.init_lsp()
-    --  lsp
-    do
-        -- python
-        exec(F "python3 -m pip install --user virtualenv")
-        local mason_base = vim.fn.stdpath("data") .. "/site/extra/mason"
-        print(mason_base)
-        exec(F "mkdir -p {mason_base}")
-        local settings = require "mason.settings"
-        settings.set({
-            -- log_level = vim.log.levels.DEBUG,
-            install_root_dir = mason_base
-        })
-        local registry = require "mason-registry"
-        local server_mapping = require "mason-lspconfig.mappings.server"
-        local function resolve_package(lspconfig_server_name)
-            return pcall(function()
-                return registry.get_package(server_mapping.lspconfig_to_package[lspconfig_server_name])
-            end)
-        end
+    -- exec(F "python3 -m pip install --user virtualenv")
+    local mason_base = vim.fn.stdpath("data") .. "/site/extra/mason"
+    print(mason_base)
+    exec(F "mkdir -p {mason_base}")
+    require("mason").setup({
+        install_root_dir = mason_base,
+        log_level = vim.log.levels.DEBUG
+    })
+    local registry = require "mason-registry"
+    local server_mapping = require("mason-lspconfig.mappings.server").package_to_lspconfig
+    local pkgs = {"lua-language-server", "rust-analyzer", "gopls", "bash-language-server", "python-lsp-server",
+                  "yaml-language-server"}
 
-        local pkgs = {"sumneko_lua", "rust_analyzer", "gopls", "bashls", "pylsp", "yamlls"}
-        local Package = require "mason-core.package"
-        local installer = require "mason-core.installer"
-        local a = require "mason-core.async"
-        print(vim.inspect(require("mason-core.path").package_prefix()))
-        for _, p in ipairs(pkgs) do
-            local server_name, version = Package.Parse(p)
-            local ok, pkg = resolve_package(server_name)
-            if not ok then
-                local msg = "sth wrong " .. server_name .. " " .. vim.inspect(pkg) .. " " .. vim.inspect(ok)
-                print(msg)
-                panic(msg)
-            end
-            print(server_name, pkg.name, vim.inspect(registry.get_installed_package_names()))
-            if pkg:is_installed() then
-                goto continue
-            end
-            print(vim.inspect(pkg:is_installed()))
-            local handle = pkg:new_handle()
-            local ret = a.run_blocking(function()
-                return installer.execute(handle, {
-                    requested_version = version,
-                    debug = true
-                })
-            end)
-            print(vim.inspect(ret))
-            print(vim.inspect(pkg:is_installed()))
-            ::continue::
+    for _, p in ipairs(pkgs) do
+        local lspc = server_mapping[p]
+        if lspc == nil then
+            print(p .. " not found in mapping " .. vim.inspect(server_mapping))
+            panic()
+        end
+        print("install " .. p)
+        if registry.has_package(p) then
+            print("has package " .. p)
+        else
+            print("not has package " .. p)
+            vim.api.nvim_command(':MasonInstall ' .. p)
         end
     end
+
 end
 function _M.init_treesitter()
     -- tree sitter extra
@@ -195,12 +173,15 @@ function _M.setup(opt)
         ::continue::
     end
     print(exec(F "tree -L 1 {PKG_BASE}"))
+    vim.api.nvim_command(
+        [[!ls -d -1 ./.nvim_modules/pack/nvimp/start/* | xargs -I{} bash -c 'cd {};repo=$(git remote -v|grep fetch|awk "{print \$2}") ; commit=$(git log | head -n 1| awk "{print \$2}");echo "$repo $commit" >>../../../../../package.lock'
+    ]])
     _M.init_nerdfront()
     _M.init_treesitter()
     _M.init_lsp()
 
     if opt.exit == true then
-        vim.cmd(":exit")
+        vim.cmd(":qa")
     end
 end
 
