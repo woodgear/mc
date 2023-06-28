@@ -19,7 +19,7 @@ jobs:
           docker_layer_caching: true
       - run:
           name: "test"
-          command: "source ./actions.sh;nvim-build;nvim-test"
+          command: "source ./actions.sh;nvim-init-dep;nvim-build;nvim-test"
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker login --username wucong -p "$DOCKER_PASS" 

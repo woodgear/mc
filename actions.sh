@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function nvim-init-dep() (
+  sudo apt update
+  sudo apt install git file wget tree build-essential pip npm golang unzip -y
+)
 function nvim-init() (
   set -x
   rm -rf ~/.local/share/nvim || true
@@ -10,7 +14,7 @@ function nvim-init() (
   rm -rf ~/.config/nvim || true
   mkdir -p ~/.config
   ln -s $PWD ~/.config/nvim
-
+  # require  pip
   ls -alh ~/.config/nvim
   ls -alh ~/.local/share/nvim/site
 )
