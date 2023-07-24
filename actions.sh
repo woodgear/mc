@@ -58,3 +58,7 @@ function nvim-run-docker() (
 function nvim-build-docker() (
   docker build -t m-vim:local -f Dockerfile .
 )
+
+function mc-log() (
+  tail -F  ~/.local/share/nvim/mc.vlog.nvim.log
+)

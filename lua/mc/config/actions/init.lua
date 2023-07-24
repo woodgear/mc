@@ -11,6 +11,7 @@ local action_set = require "telescope.actions.set"
 
 local log = require("mc.util.vlog")
 local sext = require("mc.util.string_ext")
+local fmt = require("mc.config.actions.format")
 local api = vim.api
 
 local init_actions
@@ -199,7 +200,7 @@ a_format = function()
       key = "<leader>fm"
     } },
     fn = function()
-      vim.lsp.buf.format()
+      fmt.format()
     end
   }
 end
