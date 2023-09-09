@@ -5,6 +5,20 @@ function nvim-init-dep() (
   return
 )
 
+function nvim-test() {
+  nvim --headless --noplugin -u ./init.test.lua -c "PlenaryBustedDirectory tests {minimal_init = 'tests/init.lua'}"
+}
+
+function nvim-install() (
+  if [ ! -f ./nvim.0.9.2.tar.gz ]; then
+    wget https://github.com/neovim/neovim/releases/download/v0.9.2/nvim-linux64.tar.gz -O ./nvim.0.9.2.tar.gz
+  fi
+  local bingz=./nvim.0.9.2.tar.gz
+  tar -xvf $bingz ./nvim
+  mv ./.nvim/nvim-linux64/* ./.nvim
+  rm -rf ./.nvim/nvim-linux64/
+)
+
 function nvim-init() (
   set -x
   rm -rf ~/.local/share/nvim || true
@@ -18,32 +32,31 @@ function nvim-init() (
   # require  pip
   ls -alh ~/.config/nvim
   ls -alh ~/.local/share/nvim/site
+
+  sudo rm -rf /usr/bin/nvim
+  sudo rm -rf /usr/bin/vim
+  sudo ln -s $PWD/.nvim/bin/nvim /usr/bin/nvim
+  sudo ln -s $PWD/.nvim/bin/nvim /usr/bin/vim
 )
 
-function nvim-test() {
-  nvim --headless --noplugin -u ./init.test.lua -c "PlenaryBustedDirectory tests {minimal_init = 'tests/init.lua'}"
+function nvim-full-clean() {
+  rm -rf ./.nvim_modules
+  rm -rf ~/.nvim_modules
 }
 
 function nvim-build() {
   if ! [ -x "$(command -v nvim)" ]; then
     echo "nvim not exist"
     if [ ! -d ./nvim-linux64 ]; then
-      echo "local nvim not exist"
-      wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-      tar -xf nvim-linux64.tar.gz
-      rm ./nvim-linux64.tar.gz
+      nvim-install
     fi
-    sudo rm -rf /usr/bin/nvim
-    sudo rm -rf /usr/bin/vim
-    sudo ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/nvim
-    sudo ln -s $PWD/nvim-linux64/bin/nvim /usr/bin/vim
   fi
 
   nvim-init
   nvim --headless --noplugin -u ./serious/outside.lua
   echo "init status" $?
 
-#   nvim-test
+  #   nvim-test
 }
 
 function nvim-run() (
@@ -60,5 +73,5 @@ function nvim-build-docker() (
 )
 
 function mc-log() (
-  tail -F  ~/.local/share/nvim/mc.vlog.nvim.log
+  tail -F ~/.local/share/nvim/mc.vlog.nvim.log
 )
