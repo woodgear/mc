@@ -76,6 +76,7 @@ end
 a_toggle_side = function()
   return {
     name = "toggle-side",
+    aliass = {"close-side","open-side"},
     fn = function()
       vim.api.nvim_command(':NvimTreeToggle')
     end
@@ -229,7 +230,13 @@ action_list_all_actions = function()
       local opts = require("telescope.themes").get_dropdown {}
       local actions = {}
       for k, a in pairs(ALL_ACTIONS) do
-        local a_entry = { k, a.name }
+        local a_entry = {key=a.name, name=a.name ,display=a.name}
+        if a.aliass ~= nil then
+          for _,n in ipairs(a.aliass) do
+            local link_entry = {key=a.name, name=n ,display=n.." -> "..a.name}
+            table.insert(actions, link_entry)
+          end
+        end
         log.info("action", a_entry)
         table.insert(actions, a_entry)
       end
@@ -241,8 +248,8 @@ action_list_all_actions = function()
           entry_maker = function(entry)
             return {
               value = entry,
-              display = entry[1],
-              ordinal = entry[1]
+              display = entry["display"],
+              ordinal = entry["name"] -- only use to sort
             }
           end
         },
@@ -253,7 +260,7 @@ action_list_all_actions = function()
             ta.close(prompt_bufnr)
             local selection = action_state.get_selected_entry()
             log.info("sel entry", selection)
-            local action = ALL_ACTIONS[selection.value[2]]
+            local action = ALL_ACTIONS[selection.value["key"]]
             if action.args then
               action.fn(action.get_args())
             else

@@ -14,8 +14,9 @@ function nvim-install() (
     wget https://github.com/neovim/neovim/releases/download/v0.9.2/nvim-linux64.tar.gz -O ./nvim.0.9.2.tar.gz
   fi
   local bingz=./nvim.0.9.2.tar.gz
-  tar -xvf $bingz ./nvim
-  mv ./.nvim/nvim-linux64/* ./.nvim
+  mkdir -p ./.nvim
+  tar -xvf $bingz -C ./.nvim
+  mv ./.nvim/nvim-linux64/* ./.nvim 
   rm -rf ./.nvim/nvim-linux64/
 )
 
@@ -53,6 +54,7 @@ function nvim-build() {
   fi
 
   nvim-init
+  mkdir -p ./.nvim_modules/pack/nvimp/start
   nvim --headless --noplugin -u ./serious/outside.lua
   echo "init status" $?
 
