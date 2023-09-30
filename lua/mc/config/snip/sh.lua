@@ -23,11 +23,39 @@ local conds = require("luasnip.extras.expand_conditions")
 local postfix = require("luasnip.extras.postfix").postfix
 local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
-
-ls.add_snippets("lua", {
-  ls.parser.parse_snippet("def", [[
-local $1 = function()
-  $2
-end
-  ]])
+local ck = require("mc.config.snip.common-key").keys
+local log = require("mc.util.vlog")
+ls.add_snippets("sh", {
+    s({
+        trig = ck["L_DEF"],
+        desc = "sh function"
+    }, fmt([[
+function <>() {
+    <>
+}
+]],
+        {
+            i(1), i(2)
+        },
+        {
+            delimiters = "<>"
+        }
+    )),
+    postfix({
+        trig = ".str-contains"
+    }, fmt([[
+if echo "{}" | grep -q "{}" ; then
+    {}
+fi
+]],
+        {
+            f(function(_, parent)
+                local m = parent.snippet.env.POSTFIX_MATCH
+                if m[1] == '"' and m[#m] == '"' then
+                    return string.sub(m, 1, #m)
+                end
+                return "$" .. m
+            end), i(2), i(3),
+        }
+    )),
 })

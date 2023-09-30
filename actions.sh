@@ -1,5 +1,4 @@
 #!/bin/bash
-
 function nvim-init-dep() (
   # take a look at dockerfile
   return
@@ -16,7 +15,7 @@ function nvim-install() (
   local bingz=./nvim.0.9.2.tar.gz
   mkdir -p ./.nvim
   tar -xvf $bingz -C ./.nvim
-  mv ./.nvim/nvim-linux64/* ./.nvim 
+  mv ./.nvim/nvim-linux64/* ./.nvim
   rm -rf ./.nvim/nvim-linux64/
 )
 
@@ -60,6 +59,14 @@ function nvim-build() {
 
   #   nvim-test
 }
+
+function nvim-clean-lsp() (
+  rm -rf ./.nvim_modules/extra/mason
+)
+
+function nvim-check-lsp() (
+  nvim --headless --noplugin -u ./serious/outside.lua check-lsp
+)
 
 function nvim-run() (
   nvim-init

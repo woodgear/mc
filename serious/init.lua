@@ -6,7 +6,7 @@ local F = require("pkg.F")
 local _M = {
     lock = {} -- map[string] string # url:hash map
 }
-
+local m = _M
 
 local base = vim.fn.stdpath "config"
 local PKG_BASE = base .. "/.nvim_modules/pack/nvimp/start"
@@ -60,30 +60,21 @@ end
 
 function _M.init_lsp()
     -- exec(F "python3 -m pip install --user virtualenv")
-    local mason_base = vim.fn.stdpath("data") .. "/site/extra/mason"
-    print(mason_base)
-    exec(F "mkdir -p {mason_base}")
-    require("mason").setup({
-        install_root_dir = mason_base,
-        log_level = vim.log.levels.DEBUG
-    })
+    m.init_mason_env()
     local registry = require "mason-registry"
     local server_mapping = require("mason-lspconfig.mappings.server").package_to_lspconfig
-    local pkgs = { "lua-language-server", "rust-analyzer", "gopls", "bash-language-server", "python-lsp-server",
-        "yaml-language-server" }
 
-    for _, p in ipairs(pkgs) do
+    for _, p in ipairs(m.LSP_PKGS) do
         local lspc = server_mapping[p]
         if lspc == nil then
-            print(p .. " not found in mapping " .. vim.inspect(server_mapping))
+            log.info(p .. " not found in mapping " .. vim.inspect(server_mapping))
             panic()
         end
-        print("install " .. p)
-        if registry.has_package(p) then
-            print("has package " .. p)
-        else
-            print("not has package " .. p)
+        log.info("install " .. p)
+        if not registry.is_installed(p) then
             vim.api.nvim_command(':MasonInstall ' .. p)
+        else
+            log.info("installed package  ignore  " .. p)
         end
     end
 end
@@ -282,6 +273,37 @@ function _M.setup(opt)
     if opt.exit == true then
         vim.cmd(":qa")
     end
+end
+
+_M.init_mason_env = function()
+    local mason_base = vim.fn.stdpath("data") .. "/site/extra/mason"
+    exec(F "mkdir -p {mason_base}")
+    require("mason").setup({
+        install_root_dir = mason_base,
+        log_level = vim.log.levels.DEBUG
+    })
+end
+
+m.LSP_PKGS = {
+    "lua-language-server",
+    "rust-analyzer",
+    "gopls",
+    "bash-language-server",
+    "python-lsp-server",
+    "yaml-language-server"
+}
+
+function _M.check_lsp(opt)
+    log.info("in check lsp")
+    m.init_mason_env()
+    local registry = require "mason-registry"
+    log.info("installed package ", registry.get_installed_package_names())
+    -- local p = "bash-language-server"
+    -- if registry.has_package(p) then
+    --     log.info("has package " .. p)
+    -- else
+    --     log.info("has no package " .. p)
+    -- end
 end
 
 return _M

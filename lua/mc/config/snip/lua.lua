@@ -23,10 +23,14 @@ local conds = require("luasnip.extras.expand_conditions")
 local postfix = require("luasnip.extras.postfix").postfix
 local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
+local ck = require("mc.config.snip.common-key").keys
 
-ls.add_snippets("all", {
-  s("trig", {
-    t("luasnip ok")
-  })
+ls.add_snippets("lua", {
+    s(ck["L_DEF"], fmt([[
+local function {}({})
+    {}
+end
+]], {
+        i(1), i(2), i(3),
+    }))
 })
-
