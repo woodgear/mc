@@ -45,13 +45,13 @@ ls.add_snippets("all", {
     s("trig", {
         t("luasnip ok")
     }),
-    postfix({ trig = ".rb", }, l("(" .. l.POSTFIX_MATCH .. ")")),
-    postfix({ trig = ".sb", }, l("[" .. l.POSTFIX_MATCH .. "]")),
-    postfix({ trig = ".cb", }, l("{" .. l.POSTFIX_MATCH .. "}")),
-    postfix({ trig = ".ab", }, l("<" .. l.POSTFIX_MATCH .. ">")),
-    postfix({ trig = ".dq", }, l("\"" .. l.POSTFIX_MATCH .. "\"")),
-    postfix({ trig = ".sq", }, l("'" .. l.POSTFIX_MATCH .. "'")),
-    postfix({ trig = ".rq", docstring = "双引号" }, l("`" .. l.POSTFIX_MATCH .. "`")),
+    postfix({ trig = ".rb", docstring = "圆括号" }, l("(" .. l.POSTFIX_MATCH .. ")")),
+    postfix({ trig = ".sb",docstring = "中括号" }, l("[" .. l.POSTFIX_MATCH .. "]")),
+    postfix({ trig = ".cb", docstring = "花括号"}, l("{" .. l.POSTFIX_MATCH .. "}")),
+    postfix({ trig = ".ab",docstring = "尖括号" }, l("<" .. l.POSTFIX_MATCH .. ">")),
+    postfix({ trig = ".dq",docstring = "双括号" }, l("\"" .. l.POSTFIX_MATCH .. "\"")),
+    postfix({ trig = ".sq",docstring = "单引号" }, l("'" .. l.POSTFIX_MATCH .. "'")),
+    postfix({ trig = ".rq", docstring = "反引号" }, l("`" .. l.POSTFIX_MATCH .. "`")),
     postfix({
         trig = ".rc",
         match_pattern = "[%w%.%_%-%$%(%)]+$",

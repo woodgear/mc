@@ -1,8 +1,4 @@
 #!/bin/bash
-function nvim-init-dep() (
-  # take a look at dockerfile
-  return
-)
 
 function nvim-test() {
   nvim --headless --noplugin -u ./init.test.lua -c "PlenaryBustedDirectory tests {minimal_init = 'tests/init.lua'}"
@@ -19,7 +15,7 @@ function nvim-install() (
   rm -rf ./.nvim/nvim-linux64/
 )
 
-function nvim-init() (
+function nvim-link-dirs() (
   set -x
   rm -rf ~/.local/share/nvim || true
   mkdir -p ~/.local/share/nvim
@@ -44,6 +40,12 @@ function nvim-full-clean() {
   rm -rf ~/.nvim_modules
 }
 
+function nvim-rm-package() {
+  local p=$(ls ~/.nvim_modules | fzf)
+  rm -rf ~/.nvim_modules/$p
+  rm -rf ./.nvim_modules/pack/nvimp/start/$p
+}
+
 function nvim-build() {
   if ! [ -x "$(command -v nvim)" ]; then
     echo "nvim not exist"
@@ -52,7 +54,7 @@ function nvim-build() {
     fi
   fi
 
-  nvim-init
+  nvim-link-dirs
   mkdir -p ./.nvim_modules/pack/nvimp/start
   nvim --headless --noplugin -u ./serious/outside.lua
   echo "init status" $?
@@ -69,11 +71,11 @@ function nvim-check-lsp() (
 )
 
 function nvim-run() (
-  nvim-init
+  nvim-link-dirs
 )
 
 function nvim-run-docker() (
-  nvim-init
+  nvim-link-dirs
   docker run --rm --name nvim -it m-vim:local bash
 )
 

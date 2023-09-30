@@ -15,7 +15,7 @@ local pkgs = {
         { "https://github.com/neovim/nvim-lspconfig" },
         { "https://github.com/L3MON4D3/LuaSnip" },
         { "https://github.com/svermeulen/vimpeccable" },
-        { "https://github.com/saadparwaiz1/cmp_luasnip" },
+        { "https://github.com/woodgear/cmp_luasnip",             branch = "fix/expand_params" },
         { "https://github.com/nvim-treesitter/nvim-treesitter" },
         { "https://github.com/nvim-lua/plenary.nvim" },
         { "https://github.com/williamboman/mason.nvim" },
@@ -30,8 +30,6 @@ local pkgs = {
         { "https://github.com/hrsh7th/cmp-path" },
         { "https://github.com/hrsh7th/cmp-cmdline" },
         { "https://github.com/numToStr/Comment.nvim" },
-
-
         { "https://github.com/j-hui/fidget.nvim",                branch = "legacy" },
         { "https://github.com/simrat39/symbols-outline.nvim" },
         { "https://github.com/jose-elias-alvarez/null-ls.nvim" },

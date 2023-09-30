@@ -160,8 +160,10 @@ end
 function _M.apply_lock()
     local diff = _M.check_lock(_M.read_lock())
     log.info("apply_lock", diff)
+    print("apply_lock" .. vim.inspect(diff))
     for k, v in pairs(diff) do
         log.info("apply " .. k .. " " .. inspect(v))
+        print("apply " .. k .. " " .. inspect(v))
         exec("git remote update;git checkout " .. v["lock"], v["path"])
     end
 end
@@ -261,8 +263,10 @@ function _M.setup(opt)
     end
     print(exec(F "tree -L 1 {PKG_BASE}"))
     if s.has_lock() then
+        print("apply lock")
         s.apply_lock()
     else
+        print("gen lock")
         s.gen_lock()
     end
 
