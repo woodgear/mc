@@ -18,8 +18,8 @@ local function exit()
 end
 -- debug()
 -- p.setup { exit = true }
-local arg = vim.v.argv[#vim.v.argv]
-log.info("in cli mode", "arg", arg)
+local arg = vim.v.argv[6]
+log.info("in cli mode", "arg", arg, "all", vim.v.argv)
 if arg == "check-lsp" then
     log.info("try check-lsp")
     p.check_lsp()
@@ -28,6 +28,10 @@ end
 if arg == "init-lsp" then
     log.info("try init-lsp")
     p.init_lsp()
+    exit()
+end
+if arg == "gen-patch" then
+    p.gen_patch(vim.v.argv[7])
     exit()
 end
 log.info("could not find a action just exit")

@@ -306,4 +306,36 @@ function _M.check_lsp(opt)
     -- end
 end
 
+function _M.gen_patch(patch_base)
+    local diff = {}
+    local base = "./.nvim_modules/pack/nvimp/start"
+    local list = split(exec("ls " .. base), "\n")
+    exec("mkdir -p " .. patch_base)
+    patch_base = noSpace(exec("realpath " .. patch_base))
+    for _, m in pairs(list) do
+        local mp = base .. "/" .. m
+        if m == "" then
+            goto continue
+        end
+        local commit = noSpace(exec([[git log | head -n 1| awk '{print \$2}']], mp))
+        local url = noSpace(exec([[git remote -v|grep fetch|awk '{print \$2}']], mp))
+        local status = exec([[export LANG="en_US.UTF-8";git status]], mp)
+        exec([[export LANG="en_US.UTF-8";git status]], mp)
+        if string.find(status, "working tree clean") then
+            goto continue
+        end
+        exec(string.format("echo %s > %s/%s.commit", commit, patch_base, m), mp)
+        exec(string.format("echo %s > %s/%s.home", url, patch_base, m), mp)
+        exec(string.format("git diff HEAD > %s/%s.patch", patch_base, m), mp)
+        -- print(mp, commit, m)
+        -- local origin_commit = lock[url]
+        -- if origin_commit ~= commit then
+        --     log.info(string.format("%s|%s|%s", m, commit, url, origin_commit))
+        --     diff[url] = { lock = origin_commit, url = url, path = mp, }
+        -- end
+        ::continue::
+    end
+    log.info(patch_base)
+end
+
 return _M
