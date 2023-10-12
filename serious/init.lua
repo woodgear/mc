@@ -11,14 +11,10 @@ local m = _M
 local base = vim.fn.stdpath "config"
 local PKG_BASE = base .. "/.nvim_modules/pack/nvimp/start"
 
-local str_trim = function(str)
-    return (str:gsub("^%s*(.-)%s*$", "%1"))
-end
+local str_trim = function(str) return (str:gsub("^%s*(.-)%s*$", "%1")) end
 
 local exec = function(cmd, cwd)
-    if cwd == nil then
-        cwd = "./"
-    end
+    if cwd == nil then cwd = "./" end
     local cmd = "bash -c \" cd " .. cwd .. ";" .. cmd .. "\""
     log.info("cmd " .. cmd)
     local handle = io.popen(cmd)
@@ -29,26 +25,21 @@ end
 
 local str_split = function(str, delimiter)
     local result = {}
-    string.gsub(str, '[^' .. delimiter .. ']+', function(token)
-        table.insert(result, token)
-    end)
+    string.gsub(str, '[^' .. delimiter .. ']+',
+                function(token) table.insert(result, token) end)
     return result
 end
 
 local str_contains = function(str, sub)
     local out = string.find(str, sub, 0, true)
-    if out then
-        return true
-    end
+    if out then return true end
     return false
 end
 
 local has_cache = function(name)
     local out = str_trim(exec(F "file {CACHE}/{name}"))
     local expect = F "{name}: directory"
-    if str_contains(out, expect) then
-        return true
-    end
+    if str_contains(out, expect) then return true end
     return false
 end
 
@@ -62,12 +53,14 @@ function _M.init_lsp()
     -- exec(F "python3 -m pip install --user virtualenv")
     m.init_mason_env()
     local registry = require "mason-registry"
-    local server_mapping = require("mason-lspconfig.mappings.server").package_to_lspconfig
+    local server_mapping =
+        require("mason-lspconfig.mappings.server").package_to_lspconfig
 
     for _, p in ipairs(m.LSP_PKGS) do
         local lspc = server_mapping[p]
         if lspc == nil then
-            log.info(p .. " not found in mapping " .. vim.inspect(server_mapping))
+            log.info(p .. " not found in mapping " ..
+                         vim.inspect(server_mapping))
             panic()
         end
         log.info("install " .. p)
@@ -82,16 +75,20 @@ end
 function _M.init_treesitter()
     -- tree sitter extra
     do
-        local treesitter_base = vim.fn.stdpath("data") .. "/site/extra/treesitter/parsers"
+        local treesitter_base = vim.fn.stdpath("data") ..
+                                    "/site/extra/treesitter/parsers"
         print(treesitter_base)
         vim.opt.runtimepath:append(treesitter_base)
 
         require("nvim-treesitter.configs").setup({
             parser_install_dir = treesitter_base
         })
-        local want_lang = { "c", "go", "json", "bash", "lua", "rust", "vimdoc", "vim" }
+        local want_lang = {
+            "c", "go", "json", "bash", "lua", "rust", "vimdoc", "vim"
+        }
         -- only use our paser or it will have probolem
-        print("all parser base" .. inspect(vim.api.nvim_get_runtime_file('parser', true)))
+        print("all parser base" ..
+                  inspect(vim.api.nvim_get_runtime_file('parser', true)))
         print("expect paeser base " .. treesitter_base .. "\n")
         for _, p in ipairs(vim.api.nvim_get_runtime_file('parser', true)) do
             print(p .. " vs " .. treesitter_base .. "\n")
@@ -101,7 +98,8 @@ function _M.init_treesitter()
         end
 
         for _, lang in ipairs(want_lang) do
-            local installed = #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", false) > 0
+            local installed = #vim.api.nvim_get_runtime_file(
+                                  "parser/" .. lang .. ".so", false) > 0
             print(F "{lang} {installed}")
         end
         require("nvim-treesitter.install").ensure_installed_sync(want_lang)
@@ -162,9 +160,16 @@ function _M.apply_lock()
     log.info("apply_lock", diff)
     print("apply_lock" .. vim.inspect(diff))
     for k, v in pairs(diff) do
-        log.info("apply " .. k .. " " .. inspect(v))
+        if v.lock == nil then
+            log.info("no lock ignore " .. k .. " " .. inspect(v))
+            goto continue
+        end
+
+        log.info("apply " .. k .. " " .. inspect(v) .. tostring(v.lock) ..
+                     v.lock ~= nil)
         print("apply " .. k .. " " .. inspect(v))
         exec("git remote update;git checkout " .. v["lock"], v["path"])
+        ::continue::
     end
 end
 
@@ -192,15 +197,15 @@ function _M.check_lock(lock)
     local list = split(exec("ls " .. base), "\n")
     for _, m in pairs(list) do
         local mp = base .. "/" .. m
-        local commit = noSpace(exec([[git log | head -n 1| awk '{print \$2}']], mp))
-        local url = noSpace(exec([[git remote -v|grep fetch|awk '{print \$2}']], mp))
-        if m == "" then
-            goto continue
-        end
+        local commit = noSpace(exec([[git log | head -n 1| awk '{print \$2}']],
+                                    mp))
+        local url = noSpace(exec([[git remote -v|grep fetch|awk '{print \$2}']],
+                                 mp))
+        if m == "" then goto continue end
         local origin_commit = lock[url]
         if origin_commit ~= commit then
             log.info(string.format("%s|%s|%s", m, commit, url, origin_commit))
-            diff[url] = { lock = origin_commit, url = url, path = mp, }
+            diff[url] = {lock = origin_commit, url = url, path = mp}
         end
         ::continue::
     end
@@ -265,18 +270,14 @@ function _M.setup(opt)
     if s.has_lock() then
         print("apply lock")
         s.apply_lock()
-    else
-        print("gen lock")
-        s.gen_lock()
     end
+    s.gen_lock()
 
     s.init_nerdfront()
     s.init_treesitter()
     s.init_lsp()
 
-    if opt.exit == true then
-        vim.cmd(":qa")
-    end
+    if opt.exit == true then vim.cmd(":qa") end
 end
 
 _M.init_mason_env = function()
@@ -289,12 +290,8 @@ _M.init_mason_env = function()
 end
 
 m.LSP_PKGS = {
-    "lua-language-server",
-    "rust-analyzer",
-    "gopls",
-    "bash-language-server",
-    "python-lsp-server",
-    "yaml-language-server"
+    "lua-language-server", "rust-analyzer", "gopls", "bash-language-server",
+    "python-lsp-server", "yaml-language-server"
 }
 
 function _M.check_lsp(opt)
@@ -318,16 +315,14 @@ function _M.gen_patch(patch_base)
     patch_base = noSpace(exec("realpath " .. patch_base))
     for _, m in pairs(list) do
         local mp = base .. "/" .. m
-        if m == "" then
-            goto continue
-        end
-        local commit = noSpace(exec([[git log | head -n 1| awk '{print \$2}']], mp))
-        local url = noSpace(exec([[git remote -v|grep fetch|awk '{print \$2}']], mp))
+        if m == "" then goto continue end
+        local commit = noSpace(exec([[git log | head -n 1| awk '{print \$2}']],
+                                    mp))
+        local url = noSpace(exec([[git remote -v|grep fetch|awk '{print \$2}']],
+                                 mp))
         local status = exec([[export LANG="en_US.UTF-8";git status]], mp)
         exec([[export LANG="en_US.UTF-8";git status]], mp)
-        if string.find(status, "working tree clean") then
-            goto continue
-        end
+        if string.find(status, "working tree clean") then goto continue end
         exec(string.format("echo %s > %s/%s.commit", commit, patch_base, m), mp)
         exec(string.format("echo %s > %s/%s.home", url, patch_base, m), mp)
         exec(string.format("git diff HEAD > %s/%s.patch", patch_base, m), mp)
