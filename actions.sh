@@ -1,5 +1,4 @@
 #!/bin/bash
-
 function nvim-test() {
   nvim --headless --noplugin -u ./init.test.lua -c "PlenaryBustedDirectory tests {minimal_init = 'tests/init.lua'}"
 }
