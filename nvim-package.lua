@@ -44,6 +44,7 @@ local pkgs = {
     { 'woodgear/nvim-treesitter-textobjects',                branch = "feat/on-not-selected" },
     { 'https://github.com/kevinhwang91/promise-async' },
     { "stevearc/dressing.nvim" },
+    { "akinsho/toggleterm.nvim" },
   }
 }
 -- LuaFormatter on

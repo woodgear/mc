@@ -45,4 +45,4 @@ require("indent_blankline").setup {
 }
 
 require("dressing").setup({})
-
+require("toggleterm").setup()
