@@ -16,6 +16,10 @@ if arg == "init-lsp" then
     p.init_lsp()
     exit()
 end
+if arg == "init-formatter" then
+    p.init_formatter()
+    exit()
+end
 if arg == "gen-patch" then
     p.gen_patch(vim.v.argv[7])
     exit()

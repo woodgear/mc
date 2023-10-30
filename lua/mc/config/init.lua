@@ -1,7 +1,6 @@
 require("mc.config.treesitter")
 require("mc.config.lualine") --底部状态栏
 require("mc.config.lsp")
-require("mc.config.actions")
 require("mc.config.cmp") -- 自动补全
 require("mc.config.comment")
 require("mc.config.snip")
@@ -46,3 +45,6 @@ require("indent_blankline").setup {
 
 require("dressing").setup({})
 require("toggleterm").setup()
+
+require("mc.config.format")
+require("mc.config.actions")

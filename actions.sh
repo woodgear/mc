@@ -83,6 +83,10 @@ function nvim-build-docker() (
   docker build -t m-vim:local -f Dockerfile .
 )
 
+function nvim-init-formatter() (
+  nvim --headless --noplugin -u ./serious/outside.lua init-formatter
+)
+
 function mc-log() (
   tail -F ~/.local/share/nvim/mc.vlog.nvim.log
 )

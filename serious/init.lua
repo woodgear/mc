@@ -49,6 +49,16 @@ local has_install = function(name)
     return str_contains(out, expect)
 end
 
+m.LSP_PKGS = {
+    "lua-language-server", "rust-analyzer", "gopls", "bash-language-server",
+    "python-lsp-server", "yaml-language-server"
+}
+
+function _M.check_require()
+    local req = {"luarock", "npm", "go", "python"}
+    for _, exe in pairs(req) do log.info("check ", exe) end
+
+end
 function _M.init_lsp()
     -- exec(F "python3 -m pip install --user virtualenv")
     m.init_mason_env()
@@ -275,6 +285,7 @@ function _M.setup(opt)
 
     s.init_nerdfront()
     s.init_treesitter()
+    s.init_formatter()
     s.init_lsp()
 
     if opt.exit == true then vim.cmd(":qa") end
@@ -289,10 +300,22 @@ _M.init_mason_env = function()
     })
 end
 
-m.LSP_PKGS = {
-    "lua-language-server", "rust-analyzer", "gopls", "bash-language-server",
-    "python-lsp-server", "yaml-language-server"
-}
+m.FORMATTER_PKGS = {"luaformatter", "shfmt", "gofumpt"}
+-- require
+-- luarocks
+function _M.init_formatter()
+    m.init_mason_env()
+    local registry = require "mason-registry"
+    for _, p in ipairs(m.FORMATTER_PKGS) do
+        log.info("install ", p)
+        if not registry.is_installed(p) then
+            log.info("start install ", p)
+            vim.api.nvim_command(':MasonInstall ' .. p)
+        else
+            log.info("installed package  ignore  " .. p)
+        end
+    end
+end
 
 function _M.check_lsp(opt)
     log.info("in check lsp")

@@ -45,6 +45,7 @@ local pkgs = {
     { 'https://github.com/kevinhwang91/promise-async' },
     { "stevearc/dressing.nvim" },
     { "akinsho/toggleterm.nvim" },
+    { "mhartington/formatter.nvim" },
   }
 }
 -- LuaFormatter on
