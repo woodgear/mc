@@ -84,7 +84,7 @@ end
 local function async_ui_select_file_in_project()
   return promise:new(function(resolve, reject)
     require 'telescope.builtin'.find_files({
-      find_command = { 'fd', "-t", "f", "--exclude", ".git", "-L", "-H", ".", root },
+      find_command = { 'fd', "-t", "f", "--exclude", ".git", "-L", ".", root },
       attach_mappings = function(prompt_bufnr, _)
         ta.select_default:replace(function()
           ta.close(prompt_bufnr)

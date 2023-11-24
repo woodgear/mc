@@ -109,6 +109,11 @@ require("lspconfig").pylsp.setup {
   on_attach = on_attach
 }
 
+require("lspconfig").kotlin_language_server.setup {
+  capabilities = capabilities,
+  on_attach = on_attach
+}
+
 require("lspconfig").yamlls.setup {
   capabilities = capabilities,
   on_attach = on_attach

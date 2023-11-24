@@ -25,5 +25,9 @@ if arg == "gen-patch" then
     exit()
 end
 
+if arg == "init-treesitter" then
+    p.init_treesitter()
+    exit()
+end
 
 p.setup { exit = true }
