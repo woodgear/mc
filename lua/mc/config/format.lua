@@ -1,5 +1,5 @@
 -- Utilities for creating configurations
-local util = require "formatter.util"
+local fu = require "formatter.util"
 local ff = require "formatter.filetypes"
 local l = require("mc.util.vlog")
 
@@ -13,7 +13,16 @@ require("formatter").setup {
     log_level = vim.log.levels.DEBUG,
     -- All formatter configurations are opt-in
     filetype = {
-        lua = {function() return ff["lua"].luaformat() end},
+        -- lua via luaformatter => https://github.com/Koihik/LuaFormatter
+        lua = {
+            function()
+                return {
+                    exe = "lua-format",
+                    args = {fu.escape_path(fu.get_current_buffer_file_path())},
+                    stdin = true
+                }
+            end
+        },
         sh = {function() return ff["sh"].shfmt() end},
         ["*"] = {require("formatter.filetypes.any").remove_trailing_whitespace}
     }

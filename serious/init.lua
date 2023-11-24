@@ -51,7 +51,7 @@ end
 
 m.LSP_PKGS = {
     "lua-language-server", "rust-analyzer", "gopls", "bash-language-server",
-    "python-lsp-server", "yaml-language-server","kotlin-language-server"
+    "python-lsp-server", "yaml-language-server", "kotlin-language-server"
 }
 
 function _M.check_require()
@@ -94,7 +94,7 @@ function _M.init_treesitter()
             parser_install_dir = treesitter_base
         })
         local want_lang = {
-            "c", "go", "json", "bash", "lua", "rust", "vimdoc", "vim","kotlin"
+            "c", "go", "json", "bash", "lua", "rust", "vimdoc", "vim", "kotlin"
         }
         -- only use our paser or it will have probolem
         print("all parser base" ..
@@ -300,7 +300,10 @@ _M.init_mason_env = function()
     })
 end
 
-m.FORMATTER_PKGS = {"luaformatter", "shfmt", "gofumpt"}
+m.FORMATTER_PKGS = {
+    "luaformatter", -- lua via luaformatter => https://github.com/Koihik/LuaFormatter
+    "shfmt", "gofumpt"
+}
 -- require
 -- luarocks
 function _M.init_formatter()
