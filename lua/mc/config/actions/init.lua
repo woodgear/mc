@@ -9,11 +9,9 @@ local finders = require "telescope.finders"
 local ta = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 local action_set = require "telescope.actions.set"
-
 local log = require("mc.util.vlog")
 local sext = require("mc.util.string_ext")
 local api = vim.api
-
 local init_actions
 local gen_actions
 local action_list_all_actions
@@ -27,6 +25,16 @@ local a_toggle_side
 local a_format
 local a_sync_package
 local a_focus_file
+
+local A = {}
+
+function A.reg() return end
+function A.reg_async() return end
+function A.reg_with_key() return end
+
+function A.call() return end
+
+function A.build() return end
 
 local ALL_ACTIONS = {}
 init_actions = function()
@@ -47,7 +55,10 @@ init_actions = function()
     vim.keymap.set('n', '<leader>ff', a_find_buffer_in_project, {})
     vim.keymap.set('n', '<leader>qq', a_find_string_in_project, {})
     vim.keymap.set('n', '<leader>ii', a_find_function_in_current_file, {})
-    vim.keymap.set('n', '<leader>ai', a_find_function_in_project, {})
+    vim.keymap.set('n', '<leader>jb', function()
+        log.info("jump back")
+        vim.api.nvim_command('normal! <C-o>')
+    end, {})
 end
 
 local function ui_get_file_from_user()
@@ -118,7 +129,27 @@ gen_actions = function()
                     vim.api.nvim_command(':rightbelow vsp ' .. p)
                 end)
             end
+        }, {
+            name = "new-tab",
+            fn = function()
+                async(function()
+                    local p = await(async_ui_input())
+                    vim.api.nvim_command(':tabnew ' .. p)
+                end)
+            end
+        }, {
+            name = "list-tab",
+            fn = function()
+                async(function()
+                    -- TODO
+                end)
+            end
+        }, {
+            name = "eval-current-lua-file",
+            keys = {{mode = "n", key = "<leader>el"}},
+            fn = function() vim.api.nvim_command('luafile %:p') end
         }
+
     }
 end
 
@@ -232,7 +263,7 @@ a_find_function_in_project = function()
     local builtin = require('telescope.builtin')
     builtin.lsp_workspace_symbols()
 end
-
+--[[ https://github.com/mhartington/formatter.nvim ]]
 a_format = function()
     return {
         name = "format",

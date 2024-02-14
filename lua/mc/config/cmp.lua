@@ -112,6 +112,7 @@ cmp.setup {
     },
     sources = {
         { name = "luasnip" },
+        { name = "nvim_lua" },
         {
             name = "nvim_lsp",
             entry_filter = function(entry, _)

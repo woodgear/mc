@@ -1,5 +1,5 @@
 local log = require("mc.util.vlog")
-local lspaction = require("lua.mc.config.actions.lsp")
+local lspaction = require("mc.config.actions.lsp")
 require"fidget".setup {}
 
 local opts = {noremap = true, silent = true}

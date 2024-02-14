@@ -24,6 +24,7 @@ require("formatter").setup {
             end
         },
         sh = {function() return ff["sh"].shfmt() end},
+        kotlin = {function() return vim.lsp.buf.format() end},
         ["*"] = {require("formatter.filetypes.any").remove_trailing_whitespace}
     }
 }
