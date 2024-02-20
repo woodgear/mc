@@ -130,6 +130,14 @@ gen_actions = function()
                 end)
             end
         }, {
+            name = "edit-mc",
+            fn = function()
+                async(function()
+                    vim.api.nvim_command(':tabnew mc')
+                    vim.api.nvim_command(':e ' .. vim.fn.stdpath "config")
+                end)
+            end
+        }, {
             name = "new-tab",
             fn = function()
                 async(function()
