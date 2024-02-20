@@ -40,6 +40,8 @@ local ALL_ACTIONS = {}
 init_actions = function()
     local actions = gen_actions()
     for _, a in ipairs(actions) do
+        local f = a.fn
+        a.fn = function() async(f) end
         local cmd_name = sext.snakecase_to_uppercase(a.name)
         ALL_ACTIONS[a.name] = a
         -- log.info("regx", cmd_name)
@@ -124,33 +126,25 @@ gen_actions = function()
         a_focus_file(), demo_actions(), {
             name = "open-file-in-splited-right",
             fn = function()
-                async(function()
-                    local p = await(async_ui_select_file_in_project())
-                    vim.api.nvim_command(':rightbelow vsp ' .. p)
-                end)
+                local p = await(async_ui_select_file_in_project())
+                vim.api.nvim_command(':rightbelow vsp ' .. p)
             end
         }, {
             name = "edit-mc",
             fn = function()
-                async(function()
-                    vim.api.nvim_command(':tabnew mc')
-                    vim.api.nvim_command(':e ' .. vim.fn.stdpath "config")
-                end)
+                vim.api.nvim_command(':tabnew mc')
+                vim.api.nvim_command(':e ' .. vim.fn.stdpath "config")
             end
         }, {
             name = "new-tab",
             fn = function()
-                async(function()
-                    local p = await(async_ui_input())
-                    vim.api.nvim_command(':tabnew ' .. p)
-                end)
+                local p = await(async_ui_input())
+                vim.api.nvim_command(':tabnew ' .. p)
             end
         }, {
             name = "list-tab",
             fn = function()
-                async(function()
-                    -- TODO
-                end)
+                -- TODO
             end
         }, {
             name = "eval-current-lua-file",
@@ -244,10 +238,8 @@ a_find_file_in_project = function()
         name = "find-file-in-project",
         keys = {{mode = "n", key = "<leader>kk"}},
         fn = function()
-            return async(function()
-                local p = await(async_ui_select_file_in_project())
-                on_select_path(p)
-            end)
+            local p = await(async_ui_select_file_in_project())
+            on_select_path(p)
         end
     }
 end
