@@ -46,6 +46,8 @@ local pkgs = {
     { "stevearc/dressing.nvim" },
     { "akinsho/toggleterm.nvim" },
     { "mhartington/formatter.nvim" },
+    -- coplit
+    { "https://github.com/github/copilot.vim" }
   }
 }
 -- LuaFormatter on

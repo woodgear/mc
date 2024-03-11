@@ -5,6 +5,7 @@ https://github.com/woodgear/cmp_luasnip dea781386cd57025ee1bc9328f27b47a64e867fd
 https://github.com/hrsh7th/cmp-nvim-lsp 44b16d11215dce86f253ce0c30949813c0a90765
 https://github.com/hrsh7th/cmp-path 91ff86cd9c29299a64f968ebb45846c485725f23
 https://github.com/numToStr/Comment.nvim 0236521ea582747b58869cb72f70ccfa967d2e89
+https://github.com/github/copilot.vim 3b39e786d865df9ba77fe61624d6ee646528a809
 https://github.com/stevearc/dressing.nvim 1f2d1206a03bd3add8aedf6251e4534611de577f
 https://github.com/j-hui/fidget.nvim 90c22e47be057562ee9566bad313ad42d622c1d3
 https://github.com/mhartington/formatter.nvim 34dcdfa0c75df667743b2a50dd99c84a557376f0
@@ -27,7 +28,7 @@ https://github.com/nvim-treesitter/nvim-treesitter c13e28f8947a9200e816038d85cb1
 https://github.com/woodgear/nvim-treesitter-textobjects c9b54ead4115fa1804b14d37b13d807628f8dc58
 https://github.com/kyazdani42/nvim-web-devicons ecdeb4e2a4af34fc873bbfbf1f4c4e447e632255
 https://github.com/nvim-lua/plenary.nvim a56bf0071bf63d35274fdc4738bb1e8821cfd2ea
-https://github.com/kevinhwang91/promise-async e94f35161b8c5d4a4ca3b6ff93dd073eb9214c0e
+https://github.com/kevinhwang91/promise-async.git e94f35161b8c5d4a4ca3b6ff93dd073eb9214c0e
 https://github.com/ray-x/starry.nvim dacd68fd7a3b4657ca5a57f3a3236b9c88dd9c29
 https://github.com/simrat39/symbols-outline.nvim 512791925d57a61c545bc303356e8a8f7869763c
 https://github.com/nvim-telescope/telescope.nvim 18f10f28007cb8b4d50324217349c3f568684be2
