@@ -146,11 +146,19 @@ gen_actions = function()
             fn = function()
                 -- TODO
             end
-        }, {
+        },
+        {
             name = "eval-current-lua-file",
             keys = {{mode = "n", key = "<leader>el"}},
             fn = function() vim.api.nvim_command('luafile %:p') end
-        }
+        },
+        {
+            name = "run-loop",
+            keys = {{mode = "n", key = "<leader>l"}},
+            fn = function() 
+              vim.api.nvim_command('silent ! ./loop.sh;\n')
+            end
+        },
 
     }
 end
