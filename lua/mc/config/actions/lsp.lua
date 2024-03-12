@@ -1,5 +1,6 @@
 local M= {}
 
+
 function M.on_attach(client,bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local bufopts = {

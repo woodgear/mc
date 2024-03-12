@@ -5,6 +5,8 @@ https://github.com/woodgear/cmp_luasnip dea781386cd57025ee1bc9328f27b47a64e867fd
 https://github.com/hrsh7th/cmp-nvim-lsp 44b16d11215dce86f253ce0c30949813c0a90765
 https://github.com/hrsh7th/cmp-path 91ff86cd9c29299a64f968ebb45846c485725f23
 https://github.com/numToStr/Comment.nvim 0236521ea582747b58869cb72f70ccfa967d2e89
+https://github.com/zbirenbaum/copilot-cmp 72fbaa03695779f8349be3ac54fa8bd77eed3ee3
+https://github.com/zbirenbaum/copilot.lua f7612f5af4a7d7615babf43ab1e67a2d790c13a6
 https://github.com/github/copilot.vim 3b39e786d865df9ba77fe61624d6ee646528a809
 https://github.com/stevearc/dressing.nvim 1f2d1206a03bd3add8aedf6251e4534611de577f
 https://github.com/j-hui/fidget.nvim 90c22e47be057562ee9566bad313ad42d622c1d3
@@ -12,6 +14,7 @@ https://github.com/mhartington/formatter.nvim 34dcdfa0c75df667743b2a50dd99c84a55
 https://github.com/ellisonleao/gruvbox.nvim 7fb36e0f67aa6f3d7f3e54f37ca7032ea1af0b59
 https://github.com/phaazon/hop.nvim 03f0434869f1f38868618198b5f4f2ab6d39aef2
 https://github.com/lukas-reineke/indent-blankline.nvim 9637670896b68805430e2f72cf5d16be5b97a22a
+https://github.com/onsails/lspkind.nvim 1735dd5a5054c1fb7feaf8e8658dbab925f4f0cf
 https://github.com/nvim-lualine/lualine.nvim 45e27ca739c7be6c49e5496d14fcf45a303c3a63
 https://github.com/L3MON4D3/LuaSnip ea7d7ea510c641c4f15042becd27f35b3e5b3c2b
 https://github.com/williamboman/mason-lspconfig.nvim dfdd771b792fbb4bad8e057d72558255695aa1a7

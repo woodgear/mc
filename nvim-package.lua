@@ -10,12 +10,10 @@ local pkgs = {
     { "https://github.com/kyazdani42/nvim-web-devicons" },
     { "https://github.com/MunifTanjim/nui.nvim" },
     { "https://github.com/nvim-telescope/telescope.nvim" },
-    { "https://github.com/hrsh7th/nvim-cmp" },
     { "https://github.com/Pocco81/auto-save.nvim" },
     { "https://github.com/neovim/nvim-lspconfig" },
     { "https://github.com/L3MON4D3/LuaSnip" },
     { "https://github.com/svermeulen/vimpeccable" },
-    { "https://github.com/woodgear/cmp_luasnip",             branch = "fix/expand_params" },
     { "https://github.com/nvim-treesitter/nvim-treesitter" },
     { "https://github.com/nvim-lua/plenary.nvim" },
     { "https://github.com/williamboman/mason.nvim" },
@@ -24,12 +22,20 @@ local pkgs = {
     { "https://github.com/nvim-lualine/lualine.nvim" },
     { "https://github.com/ellisonleao/gruvbox.nvim" },
 
-    -- comp
+    -- comp snip coplit
+    {"onsails/lspkind.nvim"}, -- cmp list icon
+    { "https://github.com/hrsh7th/nvim-cmp" },
     { "https://github.com/hrsh7th/cmp-nvim-lsp" },
     { "https://github.com/hrsh7th/cmp-buffer" },
     { "https://github.com/hrsh7th/cmp-path" },
     { "https://github.com/hrsh7th/cmp-cmdline" },
+    { "https://github.com/woodgear/cmp_luasnip",             branch = "fix/expand_params" },
+    -- coplit
+    { "zbirenbaum/copilot.lua" },
+    {"zbirenbaum/copilot-cmp"},
+
     { "https://github.com/numToStr/Comment.nvim" },
+
     { "https://github.com/j-hui/fidget.nvim",                branch = "legacy" },
     { "https://github.com/simrat39/symbols-outline.nvim" },
     { "https://github.com/jose-elias-alvarez/null-ls.nvim" },
@@ -46,8 +52,6 @@ local pkgs = {
     { "stevearc/dressing.nvim" },
     { "akinsho/toggleterm.nvim" },
     { "mhartington/formatter.nvim" },
-    -- coplit
-    { "https://github.com/github/copilot.vim" }
   }
 }
 -- LuaFormatter on
