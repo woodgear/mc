@@ -12,8 +12,6 @@ require("auto-save").setup({
   enabled = true
 })
 
-require("symbols-outline").setup()
-
 require('winbar').setup({ enabled = true })
 require("nvim-autopairs").setup {}
 require("nvim-surround").setup {}
@@ -48,3 +46,4 @@ require("toggleterm").setup()
 
 require("mc.config.format")
 require("mc.config.actions")
+require("ibl").setup()

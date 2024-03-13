@@ -177,7 +177,7 @@ function _M.apply_lock()
 
         log.info("apply " .. k .. " " .. inspect(v) .. tostring(v.lock) ..
                      v.lock ~= nil)
-        print("apply " .. k .. " " .. inspect(v))
+        print("apply " .. k .. " " .. inspect(v)..v["lock"])
         exec("git remote update;git checkout " .. v["lock"], v["path"])
         ::continue::
     end
