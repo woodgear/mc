@@ -4,6 +4,11 @@ function nvim-test() {
 
 }
 
+function nvim-install-package() (
+  mkdir -p ./.nvim_modules/pack/nvimp/start
+  nvim --headless --noplugin -u ./serious/outside.lua
+)
+
 function nvim-install() (
   if [ ! -f ./nvim.0.9.2.tar.gz ]; then
     wget https://github.com/neovim/neovim/releases/download/v0.9.2/nvim-linux64.tar.gz -O ./nvim.0.9.2.tar.gz
@@ -40,6 +45,13 @@ function nvim-full-clean() {
   rm -rf ~/.nvim_modules
 }
 
+function nvim-upgrade-all() (
+  rm -rf ~/.nvim_modules/
+  rm -rf ./.nvim_modules/pack/nvimp/start
+  rm ./package.lock
+  nvim-install-package
+)
+
 function nvim-rm-package() {
   local p=$(ls ~/.nvim_modules | fzf)
   rm -rf ~/.nvim_modules/$p
@@ -55,8 +67,7 @@ function nvim-build() {
   fi
 
   nvim-link-dirs
-  mkdir -p ./.nvim_modules/pack/nvimp/start
-  nvim --headless --noplugin -u ./serious/outside.lua
+  nvim-install-package()
   echo "init status" $?
 
   #   nvim-test

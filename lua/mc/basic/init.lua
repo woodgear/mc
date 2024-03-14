@@ -37,7 +37,9 @@ vim.api.nvim_create_user_command("ConfigReloadAll", a_config_readload_all, {})
 vim.keymap.set('n', '<leader>rr', a_config_readload_all, {})
 -- style
 do
+    require('starry').setup()
     vim.g.starry_disable_background = true
+    vim.g.starry_italic_comments = true
     require('starry.functions').change_style("dracula")
 end
 
