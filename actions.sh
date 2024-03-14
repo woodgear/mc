@@ -45,6 +45,11 @@ function nvim-full-clean() {
   rm -rf ~/.nvim_modules
 }
 
+function nvim-reinstall-with-lock() (
+  rm -rf ~/.nvim_modules/
+  rm -rf ./.nvim_modules/pack/nvimp/start
+  nvim-install-package
+)
 function nvim-upgrade-all() (
   rm -rf ~/.nvim_modules/
   rm -rf ./.nvim_modules/pack/nvimp/start
