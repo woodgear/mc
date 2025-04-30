@@ -10,7 +10,7 @@ function M.read_file_to_string(file)
     return content
 end
 
-function M.check_pathn(path)
+function M.check_path_type(path)
     local luv = vim.loop
     -- Check if the path exists
     if luv.fs_stat(path) then

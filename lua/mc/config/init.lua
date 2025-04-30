@@ -12,7 +12,7 @@ require("auto-save").setup({
   enabled = true
 })
 
-require('winbar').setup({ enabled = true })
+-- require('winbar').setup({ enabled = true })
 require("nvim-autopairs").setup {}
 require("nvim-surround").setup {}
 

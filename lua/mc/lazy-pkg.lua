@@ -2,7 +2,7 @@
 local m = {
     {
         "folke/tokyonight.nvim",
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             vim.cmd([[colorscheme tokyonight]])
@@ -38,9 +38,9 @@ local m = {
 
     { "https://github.com/numToStr/Comment.nvim" },
 
-    { "https://github.com/j-hui/fidget.nvim", },  -- Extensible UI for Neovim notifications and LSP progress messages.
+    { "https://github.com/j-hui/fidget.nvim", }, -- Extensible UI for Neovim notifications and LSP progress messages.
     { "https://github.com/simrat39/symbols-outline.nvim" },
-    { "fgheng/winbar.nvim" },
+    -- { "fgheng/winbar.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "phaazon/hop.nvim" },
     { "windwp/nvim-autopairs" },
@@ -52,6 +52,24 @@ local m = {
     { "akinsho/toggleterm.nvim" },
     { "mhartington/formatter.nvim" },
     { "nvimtools/none-ls.nvim" },
+    {
+        'LukasPietzschmann/telescope-tabs',
+        config = function()
+            require('telescope').load_extension 'telescope-tabs'
+            require('telescope-tabs').setup {
+                -- Your custom config :^)
+            }
+        end,
+        dependencies = { 'nvim-telescope/telescope.nvim' },
+    },
+    {
+        'nanozuki/tabby.nvim',
+        -- event = 'VimEnter', -- if you want lazy load, see below
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function()
+            -- configs...
+        end,
+    }
 }
 
 return m
