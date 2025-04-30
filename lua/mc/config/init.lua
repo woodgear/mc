@@ -4,7 +4,7 @@ require("mc.config.lsp")
 require("mc.config.cmp") -- 自动补全
 require("mc.config.comment")
 require("mc.config.snip")
-require("mc.config.null-ls")
+require("mc.config.none-ls")
 require("mc.config.telescope")
 require("mc.config.hop")
 

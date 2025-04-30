@@ -10,4 +10,23 @@ function M.read_file_to_string(file)
     return content
 end
 
+function M.check_pathn(path)
+    local luv = vim.loop
+    -- Check if the path exists
+    if luv.fs_stat(path) then
+        -- Path exists
+        local file_type = luv.fs_stat(path).type
+        if file_type == 'file' then
+            return "file"
+        elseif file_type == 'directory' then
+            return "dir"
+        else
+            return "unknow-type"
+        end
+    else
+        -- Path does not exist
+        return "no-exist"
+    end
+end
+
 return M
