@@ -1,6 +1,6 @@
 local log = require("mc.util.vlog")
 
-local function boot_nvim()
+local function init_lazy()
     -- Bootstrap lazy.nvim
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -35,7 +35,9 @@ local function boot_nvim()
         -- automatically check for plugin updates
         checker = { enabled = false },
     })
+end
 
+local function init_install()
     local want_lang = { "c", "go", "json", "bash", "lua", "rust", "vimdoc", "vim", "kotlin" }
     require("nvim-treesitter.install").ensure_installed_sync(want_lang)
 
@@ -47,7 +49,7 @@ local function boot_nvim()
         -- "python-lsp-server",
         "yaml-language-server",
         "kotlin-language-server",
-        "luaformatter"
+        --  "luaformatter"
     }
 
     require("mason").setup()
@@ -65,6 +67,7 @@ local function boot_nvim()
     init_lsp(mason_pkgs)
 end
 
-boot_nvim()
+init_lazy()
+-- init_install() -- seems not work..
 -- do our config
 require("mc")
