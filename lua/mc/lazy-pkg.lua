@@ -2,57 +2,39 @@
 local m = {
     {
         "folke/tokyonight.nvim",
-        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            vim.cmd([[colorscheme tokyonight]])
-        end,
-    },
-    { "nvim-lua/plenary.nvim" }, -- helper function lib for lua and nvim
-    { "kyazdani42/nvim-web-devicons" },
-    { "MunifTanjim/nui.nvim" },
-    { "nvim-telescope/telescope.nvim" },
-    { "Pocco81/auto-save.nvim" },
-    { "neovim/nvim-lspconfig" },
-    { "L3MON4D3/LuaSnip" },
-    { "svermeulen/vimpeccable" },
-    { "nvim-treesitter/nvim-treesitter" },
-    { "nvim-tree/nvim-tree.lua" },
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
-    { "ray-x/starry.nvim" },
-    { "nvim-lualine/lualine.nvim" },
-    { "ellisonleao/gruvbox.nvim" },
-
-    -- comp snip coplit
-    { "onsails/lspkind.nvim" }, -- cmp list icon
-    { "https://github.com/hrsh7th/nvim-cmp" },
-    { "https://github.com/hrsh7th/cmp-nvim-lsp" },
-    { "https://github.com/hrsh7th/cmp-buffer" },
-    { "https://github.com/hrsh7th/cmp-path" },
-    { "https://github.com/hrsh7th/cmp-cmdline" },
-    { "https://github.com/woodgear/cmp_luasnip",         branch = "fix/expand_params" },
+        config = function() vim.cmd([[colorscheme tokyonight]]) end
+    }, {"nvim-lua/plenary.nvim"}, -- helper function lib for lua and nvim
+    {"kyazdani42/nvim-web-devicons"}, {"MunifTanjim/nui.nvim"},
+    {"nvim-telescope/telescope.nvim"}, {"Pocco81/auto-save.nvim"},
+    {"neovim/nvim-lspconfig"}, {"L3MON4D3/LuaSnip"}, {"svermeulen/vimpeccable"},
+    {"nvim-treesitter/nvim-treesitter"}, {"nvim-tree/nvim-tree.lua"},
+    {"williamboman/mason.nvim"}, {"williamboman/mason-lspconfig.nvim"},
+    {"ray-x/starry.nvim"}, {"nvim-lualine/lualine.nvim"},
+    {"ellisonleao/gruvbox.nvim"}, -- comp snip coplit
+    {"onsails/lspkind.nvim"}, -- cmp list icon
+    {"https://github.com/hrsh7th/nvim-cmp"},
+    {"https://github.com/hrsh7th/cmp-nvim-lsp"},
+    {"https://github.com/hrsh7th/cmp-buffer"},
+    {"https://github.com/hrsh7th/cmp-path"},
+    {"https://github.com/hrsh7th/cmp-cmdline"},
+    {"https://github.com/woodgear/cmp_luasnip", branch = "fix/expand_params"},
     -- coplit
-    { "zbirenbaum/copilot.lua" },
-    { "zbirenbaum/copilot-cmp" },
+    {"zbirenbaum/copilot.lua"}, {"zbirenbaum/copilot-cmp"},
 
-    { "https://github.com/numToStr/Comment.nvim" },
+    {"https://github.com/numToStr/Comment.nvim"},
 
-    { "https://github.com/j-hui/fidget.nvim", }, -- Extensible UI for Neovim notifications and LSP progress messages.
-    { "https://github.com/simrat39/symbols-outline.nvim" },
+    {"https://github.com/j-hui/fidget.nvim"}, -- Extensible UI for Neovim notifications and LSP progress messages.
+    {"https://github.com/simrat39/symbols-outline.nvim"},
     -- { "fgheng/winbar.nvim" },
-    { "nvim-telescope/telescope-ui-select.nvim" },
-    { "phaazon/hop.nvim" },
-    { "windwp/nvim-autopairs" },
-    { "kylechui/nvim-surround" },
-    { "lukas-reineke/indent-blankline.nvim" },
-    { 'woodgear/nvim-treesitter-textobjects',            branch = "feat/on-not-selected" },
-    { 'kevinhwang91/promise-async' },
-    { "stevearc/dressing.nvim" },
-    { "akinsho/toggleterm.nvim" },
-    { "mhartington/formatter.nvim" },
-    { "nvimtools/none-ls.nvim" },
-    {
+    {"nvim-telescope/telescope-ui-select.nvim"}, {"phaazon/hop.nvim"},
+    {"windwp/nvim-autopairs"}, {"kylechui/nvim-surround"},
+    {"lukas-reineke/indent-blankline.nvim"},
+    {'woodgear/nvim-treesitter-textobjects', branch = "feat/on-not-selected"},
+    {'kevinhwang91/promise-async'}, {"stevearc/dressing.nvim"},
+    {"akinsho/toggleterm.nvim"}, {"mhartington/formatter.nvim"},
+    {"nvimtools/none-ls.nvim"}, {
         'LukasPietzschmann/telescope-tabs',
         config = function()
             require('telescope').load_extension 'telescope-tabs'
@@ -60,16 +42,16 @@ local m = {
                 -- Your custom config :^)
             }
         end,
-        dependencies = { 'nvim-telescope/telescope.nvim' },
-    },
-    {
+        dependencies = {'nvim-telescope/telescope.nvim'}
+    }, {
         'nanozuki/tabby.nvim',
         -- event = 'VimEnter', -- if you want lazy load, see below
         dependencies = 'nvim-tree/nvim-web-devicons',
         config = function()
             -- configs...
-        end,
-    }
+        end
+    },
+    {"mghaight/replua.nvim", config = function() require("replua").setup() end}
 }
 
 return m
