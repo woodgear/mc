@@ -6,9 +6,48 @@ local m = {
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function() vim.cmd([[colorscheme tokyonight]]) end
     }, {"nvim-lua/plenary.nvim"}, -- helper function lib for lua and nvim
-    {"kyazdani42/nvim-web-devicons"}, {"MunifTanjim/nui.nvim"},
-    {"nvim-telescope/telescope.nvim"}, {"Pocco81/auto-save.nvim"},
-    {"neovim/nvim-lspconfig"}, {"L3MON4D3/LuaSnip"}, {"svermeulen/vimpeccable"},
+    {"kyazdani42/nvim-web-devicons"}, {"MunifTanjim/nui.nvim"}, {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            {
+                "nvim-telescope/telescope-live-grep-args.nvim",
+                -- This will not install any breaking changes.
+                -- For major updates, this must be adjusted manually.
+                version = "^1.0.0"
+            }
+        },
+        config = function()
+            local telescope = require("telescope")
+            local lga_actions = require("telescope-live-grep-args.actions")
+            -- first setup telescope
+            telescope.setup {
+                extensions = {
+                    live_grep_args = {
+                        auto_quoting = true, -- enable/disable auto-quoting
+                        -- define mappings, e.g.
+                        mappings = { -- extend mappings
+                            i = {
+                                ["<C-k>"] = lga_actions.quote_prompt(),
+                                ["<C-i>"] = lga_actions.quote_prompt({
+                                    postfix = " --iglob "
+                                }),
+                                -- freeze the current list and start a fuzzy search in the frozen list
+                                ["<C-space>"] = lga_actions.to_fuzzy_refine
+                            }
+                        }
+                        -- ... also accepts theme settings, for example:
+                        -- theme = "dropdown", -- use dropdown theme
+                        -- theme = { }, -- use own theme spec
+                        -- layout_config = { mirror=true }, -- mirror preview pane
+                    }
+                }
+            }
+
+            -- then load the extension
+            telescope.load_extension("live_grep_args")
+        end
+    }, {"Pocco81/auto-save.nvim"}, {"neovim/nvim-lspconfig"},
+    {"L3MON4D3/LuaSnip"}, {"svermeulen/vimpeccable"},
     {"nvim-treesitter/nvim-treesitter"}, {"nvim-tree/nvim-tree.lua"},
     {"williamboman/mason.nvim"}, {"williamboman/mason-lspconfig.nvim"},
     {"ray-x/starry.nvim"}, {"nvim-lualine/lualine.nvim"},

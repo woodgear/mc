@@ -150,8 +150,7 @@ local actions = {
         name = "find-string-in-project",
         keys = {{mode = "n", key = "<leader>qq"}},
         fn = function()
-            local builtin = require('telescope.builtin')
-            builtin.live_grep()
+            require('telescope').extensions.live_grep_args.live_grep_args()
         end
     }, {
         name = "find-function-in-current-file",

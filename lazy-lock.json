@@ -36,6 +36,7 @@
   "starry.nvim": { "branch": "master", "commit": "972158d6f9a630fad1954f42b921983ab4de8ab3" },
   "symbols-outline.nvim": { "branch": "master", "commit": "564ee65dfc9024bdde73a6621820866987cbb256" },
   "tabby.nvim": { "branch": "main", "commit": "6362aa9595428cefbb6556c05390e8444d1bcd12" },
+  "telescope-live-grep-args.nvim": { "branch": "master", "commit": "8ad632f793fd437865f99af5684f78300dac93fb" },
   "telescope-tabs": { "branch": "master", "commit": "9ca0800d4e9c2610d5cac4d121cde0d9fbd89a64" },
   "telescope-ui-select.nvim": { "branch": "master", "commit": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2" },
   "telescope.nvim": { "branch": "master", "commit": "a4ed82509cecc56df1c7138920a1aeaf246c0ac5" },

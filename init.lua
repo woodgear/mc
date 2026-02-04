@@ -38,7 +38,7 @@ local function init_lazy()
 end
 
 local function init_install()
-    local want_lang = { "c", "go", "json", "bash", "lua", "rust", "vimdoc", "vim", "kotlin" }
+    local want_lang = { "c", "go", "json", "bash", "lua", "rust", "vimdoc", "vim", "kotlin", "javascript" }
     require("nvim-treesitter.install").ensure_installed_sync(want_lang)
 
     local mason_pkgs = {
